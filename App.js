@@ -1,20 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+
+// https://befonts.com/salisbury-bold-font.html
+// https://befonts.com/goli-sans-font-family.html
+
+import { View } from 'react-native';
+import AppNavigator from './navigation/AppNavigator';
+
+import * as SplashScreen from 'expo-splash-screen';
+import { StatusBar } from 'react-native';
+import { UserProvider } from './context/UserContext';
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  // TODO: hide splash screen once fonts loaded
+
+  const hideSplash = async () => {
+    await SplashScreen.hideAsync()
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={{ flex: 1 }} onLayout={hideSplash}>
+      <UserProvider>
+        <StatusBar backgroundColor='auto' />
+        <AppNavigator />
+      </UserProvider>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
