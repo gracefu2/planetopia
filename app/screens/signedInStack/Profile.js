@@ -89,6 +89,7 @@ export default ProfileScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'red',
     paddingHorizontal: 16,
     backgroundColor: '#f8f8f8',
     paddingVertical: 50
