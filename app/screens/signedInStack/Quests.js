@@ -3,22 +3,23 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import Button from '../../components/general/Button';
 import { ProgressBar } from 'react-native-paper';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const QuestsScreen = () => {
   const navigation = useNavigation()
   const [weeklyProgress] = useState([
-    { id: '1', title: 'Bike 5 times', progress: 60, total: 5 },
+    { id: '1', title: 'Bike 5 times', progress: 3, total: 5 },
     { id: '2', title: 'Drink out of a reusable water bottle 8 times', progress: 2, total: 8 },
-    { id: '3', title: 'Eat veggies 10 times', progress: 20, total: 10 },
+    { id: '3', title: 'Eat veggies 10 times', progress: 5, total: 10 },
   ]);
 
   const [monthlyProgress] = useState([
     { id: '1', title: 'Plant 2 trees', progress: 0, total: 2 },
-    { id: '2', title: 'Walk 20 miles total', progress: 50, total: 20 },
+    { id: '2', title: 'Walk 20 miles total', progress: 10, total: 20 },
   ]);
 
   return (
-    <View style={styles.container}>
+    <LinearGradient colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.container}>
       <Text style={styles.title}>Quests</Text>
       <Text style={styles.sectionTitle}>Weekly Goals</Text>
       <FlatList
@@ -52,7 +53,7 @@ const QuestsScreen = () => {
         onPress={() => navigation.navigate('PointsCalculator')}
         style={styles.button}
       />
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -85,6 +86,9 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     flexDirection: 'row',
     justifyContent: 'space-between'
+  },
+  goalText: {
+    color: '#ffffff',
   },
   button: {
     marginTop: 20,
