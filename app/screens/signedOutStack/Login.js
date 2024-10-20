@@ -58,7 +58,7 @@ export default LoginScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'red',
+    backgroundColor: '#e5efff',
     justifyContent: 'center',
     padding: sizing.defaultContainerPadding,
     gap: sizing.defaultContainerPadding
