@@ -69,18 +69,20 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: '#ffffff,
   },
   sectionTitle: {
     fontSize: 20,
     fontWeight: '600',
     marginTop: 20,
+    color: '#ffffff', 
   },
   goalItem: {
     fontSize: 16,
     marginVertical: 5,
     padding: 10,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 5,
+    backgroundColor: '#ef8332',
+    borderRadius: 15,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
@@ -89,5 +91,9 @@ const styles = StyleSheet.create({
   },
   goalContainer: {
     marginVertical: 10,
+  },
+  progressBar: {
+    borderRadius: 10,
+    height: 10,
   },
 });
