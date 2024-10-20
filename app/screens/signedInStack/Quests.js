@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#ffffff,
+    color: '#ffffff',
   },
   sectionTitle: {
     fontSize: 20,
