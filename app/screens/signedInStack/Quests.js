@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     color: colors.text,
     fontSize: 16,
-    marginBottom: 5,
+    marginBottom: 10,
     alignSelf: 'center',
   },
   trackPointsContainer: {
