@@ -84,23 +84,23 @@ const QuestsScreen = () => {
       <LinearGradient colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.headerContainer}>
         <Text style={styles.dateBox}>{today}</Text>
         <Text style={styles.headerTitle}>My Quests</Text>
-
-        {/* Track Points Section */}
-        <View style={styles.trackPointsContainer}>
-          <Text style={styles.trackPointsText}>Track Your Daily Points</Text>
-          <Text style={styles.goalText}>Goal: {dailyPointsGoal} Points</Text>
-          <ProgressBar 
-            progress={currentDailyPoints / dailyPointsGoal} 
-            color="#FF6F61" 
-            style={styles.customFatProgressBar} 
-          />
-          <Button
-            text="+ Track points"
-            onPress={() => navigation.navigate('PointsCalculator', { onAddPoints: handleAddPoints })}
-            style={styles.trackPointsButton}
-          />
-        </View>
       </LinearGradient>
+
+      {/* Track Points Section */}
+      <View style={styles.trackPointsContainer}>
+        <Text style={styles.trackPointsText}>Track Your Daily Points</Text>
+        <Text style={styles.goalText}>Goal: {dailyPointsGoal} Points</Text>
+        <ProgressBar 
+          progress={currentDailyPoints / dailyPointsGoal} 
+          color="#FF6F61" 
+          style={styles.customFatProgressBar} 
+        />
+        <Button
+          text="+ Track points"
+          onPress={() => navigation.navigate('PointsCalculator', { onAddPoints: handleAddPoints })}
+          style={styles.trackPointsButton}
+        />
+      </View>
 
       {/* Divider */}
       <View style={styles.divider} />
@@ -130,8 +130,6 @@ const QuestsScreen = () => {
   );
 };
 
-export default QuestsScreen;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -143,9 +141,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderBottomWidth: 2,
     borderBottomColor: colors.secondary,
-    flexDirection: 'row', // Set the flex direction to row
-    justifyContent: 'space-between', // Space between title and button
-    alignItems: 'center', // Center vertically
+    alignItems: 'center', // Center items horizontally
   },
   headerTitle: {
     fontSize: 34,
@@ -283,3 +279,5 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
 });
+
+export default QuestsScreen;
