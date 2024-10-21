@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     padding: 20,
+    paddingTop: 40,
     marginBottom: 10,
     borderBottomWidth: 2,
     borderBottomColor: colors.secondary,
