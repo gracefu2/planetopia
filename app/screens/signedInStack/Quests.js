@@ -8,7 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 // Define colors
 const colors = {
   primary: '#FF6F61',
-  secondary: '#b3d99e',
+  secondary: '#b3d99e', // This is your green color
   accent: '#71cabb',
   background: '#ffefd5',
   text: '#333',
@@ -49,7 +49,7 @@ const QuestsScreen = () => {
                 <Text style={styles.goalTitle}>{item.title}</Text>
                 <Text style={styles.goalProgressText}>{item.progress} / {item.total}</Text>
               </View>
-              <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color="#FF6F61" style={styles.customProgressBar} />
+              <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color={colors.secondary} style={styles.customProgressBar} /> {/* Updated to green */}
             </LinearGradient>
           )}
           keyExtractor={item => item.id}
@@ -81,13 +81,13 @@ const QuestsScreen = () => {
           <Text style={styles.goalText}>Goal: {dailyPointsGoal} Points</Text>
           <ProgressBar 
             progress={currentDailyPoints / dailyPointsGoal} 
-            color="#FF6F61" 
+            color={colors.secondary} // Updated to green
             style={styles.customFatProgressBar} 
           />
           <Button
             text="+ Track points"
             onPress={() => navigation.navigate('PointsCalculator', { onAddPoints: handleAddPoints })}
-            style={[styles.trackPointsButton, { backgroundColor: colors.secondary }]} // Use the primary color
+            style={[styles.trackPointsButton, { backgroundColor: colors.secondary }]} // Use the green color
           />
         </View>
       </LinearGradient>
