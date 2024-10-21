@@ -27,7 +27,7 @@ const QuestsScreen = () => {
     { id: '1', title: 'Plant 2 trees', progress: 0, total: 2 },
     { id: '2', title: 'Walk 20 miles total', progress: 10, total: 20 },
   ]);
-  
+
   const dailyPointsGoal = 50;
   const [currentDailyPoints, setCurrentDailyPoints] = useState(0);
 
@@ -53,7 +53,7 @@ const QuestsScreen = () => {
             </LinearGradient>
           )}
           keyExtractor={item => item.id}
-          scrollEnabled={false}  // Disable scrolling for FlatList to allow the ScrollView to handle it
+          scrollEnabled={false} // Disable scrolling for FlatList to allow the ScrollView to handle it
         />
       ) : (
         <View style={styles.noGoalsContainer}>
@@ -78,10 +78,15 @@ const QuestsScreen = () => {
         {/* Track Points Section */}
         <View style={styles.trackPointsContainer}>
           <Text style={styles.trackPointsText}>Track Your Daily Points</Text>
-          <ProgressBar progress={0.75} color="#FF6F61" style={styles.customProgressBarHeader} />
+          <Text style={styles.goalText}>Goal: {dailyPointsGoal} Points</Text>
+          <ProgressBar 
+            progress={currentDailyPoints / dailyPointsGoal} 
+            color="#FF6F61" 
+            style={styles.customFatProgressBar} 
+          />
           <Button
             text="+ Track points"
-            onPress={() => navigation.navigate('PointsCalculator')}
+            onPress={() => navigation.navigate('PointsCalculator', { onAddPoints: handleAddPoints })}
             style={styles.trackPointsButton}
           />
         </View>
@@ -139,6 +144,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: colors.text,
   },
+  goalText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: colors.text,
+    marginBottom: 10,
+  },
   sectionTitle: {
     fontSize: 28,
     fontWeight: '700',
@@ -165,7 +176,7 @@ const styles = StyleSheet.create({
   },
   customFatProgressBar: {
     borderRadius: 20,
-    height: 20, // Make the progress bar taller
+    height: 20, 
     marginTop: 10,
     backgroundColor: '#FFD9D9',
     shadowColor: '#000',
@@ -173,7 +184,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 5,
-    },
+  },
   customProgressBar: {
     borderRadius: 20,
     height: 12,
