@@ -7,22 +7,19 @@ import Button from '../../components/general/Button';
 
 const Tab = createMaterialTopTabNavigator();
 
-// New pastel color gradient logic
+// New color gradient logic using hex colors
 const getColorFromRank = (rank, totalUsers) => {
   const percentage = rank / totalUsers;
 
-  // Pastel color gradient: bottom red, middle yellow, top green
-  if (percentage <= 0.5) {
-    // From yellow to pastel red
-    const red = Math.floor(255 * (percentage * 2));
-    const green = 255; // Fixed green for yellow
-    return `rgb(${red}, ${green}, 0)`; // RGB color from yellow to pastel red
-  } else {
-    // From pastel green to yellow
-    const green = 255;
-    const red = Math.floor(255 * (1 - (percentage - 0.5) * 2));
-    return `rgb(${red}, ${green}, 0)`; // RGB color from pastel green to yellow
-  }
+  // Calculate the color based on the rank
+  const startColor = { r: 15, g: 83, b: 129 }; // #0f5381
+  const endColor = { r: 102, g: 198, b: 217 }; // #66c6d9
+
+  const r = Math.floor(startColor.r + (endColor.r - startColor.r) * percentage);
+  const g = Math.floor(startColor.g + (endColor.g - startColor.g) * percentage);
+  const b = Math.floor(startColor.b + (endColor.b - startColor.b) * percentage);
+
+  return `rgb(${r}, ${g}, ${b})`;
 };
 
 const LeaderboardScreen = () => {
@@ -149,7 +146,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f9f9f9', // Light background for contrast
   },
   searchInput: {
-    borderColor: '#0c5f98',
+    borderColor: '#0f5381',
     borderWidth: 2,
     paddingHorizontal: 12,
     paddingVertical: 8,
@@ -185,7 +182,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginVertical: 8,
-    color: '#0c5f98',
+    color: '#0f5381',
   },
   emptyMessage: {
     textAlign: 'center',
