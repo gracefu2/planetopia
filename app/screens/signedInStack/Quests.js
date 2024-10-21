@@ -52,7 +52,7 @@ const QuestsScreen = () => {
         <View style={styles.noGoalsContainer}>
           <Text style={styles.noGoalsText}>Oh no! It looks like you have no {title.toLowerCase()}!</Text>
           <Button
-            text={`Add ${title}`}
+            text={Add ${title}}
             onPress={() => navigation.navigate('AddGoalScreen')}
             style={styles.trackPointsButton}
           />
