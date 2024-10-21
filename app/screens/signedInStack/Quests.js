@@ -44,7 +44,7 @@ const QuestsScreen = () => {
         <FlatList
           data={data}
           renderItem={({ item }) => (
-            <LinearGradient key={item.id} colors={['#66c6d9', '#0f5381']} style={styles.goalItem}>
+            <LinearGradient key={item.id} colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.goalItem}>
               <View style={styles.goalTextContainer}>
                 <Text style={styles.goalTitle}>{item.title}</Text>
                 <Text style={styles.goalProgressText}>{item.progress} / {item.total}</Text>
@@ -59,7 +59,7 @@ const QuestsScreen = () => {
         <View style={styles.noGoalsContainer}>
           <Text style={styles.noGoalsText}>Oh no! It looks like you have no {title.toLowerCase()}!</Text>
           <Button
-            text={Add ${title}
+            text={`Add ${title}`}
             onPress={() => navigation.navigate('AddGoalScreen')}
             style={styles.trackPointsButton}
           />
@@ -71,7 +71,7 @@ const QuestsScreen = () => {
   return (
     <ScrollView style={styles.container}>
       {/* Gradient Header Section */}
-      <LinearGradient colors={['#66c6d9', '#0f5381']} style={styles.headerContainer}>
+      <LinearGradient colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.headerContainer}>
         <Text style={styles.dateBox}>{today}</Text>
         <Text style={styles.headerTitle}>My Quests</Text>
 
@@ -87,7 +87,7 @@ const QuestsScreen = () => {
           <Button
             text="+ Track points"
             onPress={() => navigation.navigate('PointsCalculator', { onAddPoints: handleAddPoints })}
-            style={[styles.trackPointsButton, { backgroundColor: colors.secondary }]} // Use the primary color
+            style={styles.trackPointsButton}
           />
         </View>
       </LinearGradient>
@@ -171,6 +171,7 @@ const styles = StyleSheet.create({
   goalItem: {
     marginVertical: 8,
     padding: 15,
+    backgroundColor: colors.secondary,
     borderRadius: 12,
   },
   customFatProgressBar: {
@@ -201,4 +202,4 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: 'center',
   },
-})
+});
