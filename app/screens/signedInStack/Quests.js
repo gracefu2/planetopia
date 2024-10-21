@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, ScrollView, Modal, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ScrollView } from 'react-native';
 import Button from '../../components/general/Button';
 import { ProgressBar } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -37,19 +37,9 @@ const QuestsScreen = () => {
     setCurrentDailyPoints(prevPoints => Math.min(prevPoints + points, dailyPointsGoal));
   };
 
-  const [modalVisible, setModalVisible] = useState(false);
-
   const renderGoals = (data, title) => (
     <View style={styles.goalsContainer}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.sectionTitle}>{title}</Text>
-        <TouchableOpacity
-          style={styles.addButton}
-          onPress={() => setModalVisible(true)}
-        >
-          <Text style={styles.addButtonText}>+ New Goal</Text>
-        </TouchableOpacity>
-      </View>
+      <Text style={styles.sectionTitle}>{title}</Text>
       {data.length > 0 ? (
         <FlatList
           data={data}
@@ -108,24 +98,6 @@ const QuestsScreen = () => {
       {/* Goals Sections */}
       {renderGoals(weeklyProgress, 'Weekly Goals')}
       {renderGoals(monthlyProgress, 'Monthly Goals')}
-
-      {/* Modal for Adding a New Goal */}
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(!modalVisible)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <TouchableOpacity style={styles.closeButton} onPress={() => setModalVisible(false)}>
-              <Text style={styles.closeButtonText}>X</Text>
-            </TouchableOpacity>
-            <Text style={styles.modalTitle}>Add a New Goal</Text>
-            {/* You can add your input fields and buttons for adding a new goal here */}
-          </View>
-        </View>
-      </Modal>
     </ScrollView>
   );
 };
@@ -139,13 +111,10 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     padding: 20,
-    paddingTop: 10, // Adjusted for better vertical alignment
+    paddingTop: 40,
     marginBottom: 10,
     borderBottomWidth: 2,
     borderBottomColor: colors.secondary,
-    flexDirection: 'row', // Set the flex direction to row
-    justifyContent: 'space-between', // Space between title and button
-    alignItems: 'center', // Center vertically
   },
   headerTitle: {
     fontSize: 34,
@@ -199,15 +168,6 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 3,
   },
-  addButton: {
-    backgroundColor: colors.primary,
-    borderRadius: 5,
-    padding: 10,
-  },
-  addButtonText: {
-    color: colors.white,
-    fontWeight: '600',
-  },
   goalItem: {
     marginVertical: 8,
     padding: 15,
@@ -241,45 +201,5 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     marginTop: 10,
     textAlign: 'center',
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalContent: {
-    width: '80%',
-    backgroundColor: colors.white,
-    padding: 20,
-    borderRadius: 10,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  closeButton: {
-    alignSelf: 'flex-end',
-  },
-  closeButtonText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: colors.primary,
-  },
-  modalTitle: {
-    fontSize: 24,
-    fontWeight: '700',
-    marginBottom: 10,
-  },
-  noGoalsContainer: {
-    alignItems: 'center',
-    padding: 20,
-  },
-  divider: {
-    height: 2,
-    backgroundColor: colors.secondary,
-    marginVertical: 10,
   },
 });
