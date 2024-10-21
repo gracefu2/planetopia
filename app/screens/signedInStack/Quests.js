@@ -87,7 +87,7 @@ const QuestsScreen = () => {
           <Button
             text="+ Track points"
             onPress={() => navigation.navigate('PointsCalculator', { onAddPoints: handleAddPoints })}
-            style={[styles.trackPointsButton, { backgroundColor: colors.primary }]} // Use the primary color
+            style={[styles.trackPointsButton, { backgroundColor: colors.secondary }]} // Use the primary color
           />
         </View>
       </LinearGradient>
