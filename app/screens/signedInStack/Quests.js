@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   sectionTitle: {
-    fontSize: 30,
+    fontSize: 26,
     fontWeight: '600',
     marginTop: 20,
     color: '#ffffff',
@@ -176,10 +176,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 5,
-  },
-  goalContainer: {
-    marginVertical: 10,
     marginHorizontal: 10,
+  },
+  goalsContainer: {
+    paddingHorizontal: 16, 
+    marginVertical: 10,
   },
   customProgressBar: {
     borderRadius: 20,
