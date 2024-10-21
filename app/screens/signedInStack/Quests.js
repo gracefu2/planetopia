@@ -51,7 +51,8 @@ const QuestsScreen = () => {
 
       {/* Divider */}
       <View style={styles.divider} />
-
+ {/* Wrap everything inside ScrollView */}
+      <ScrollView>
         {/* Weekly Goals Section */}
         <View style={styles.goalsContainer}>
           <Text style={styles.sectionTitle}>Weekly Goals</Text>
@@ -111,6 +112,7 @@ const QuestsScreen = () => {
             </View>
           )}
         </View>
+      </ScrollView> {/* Closing ScrollView */}
     </View>
   );
 };
