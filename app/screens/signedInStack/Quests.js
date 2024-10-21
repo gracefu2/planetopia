@@ -132,9 +132,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center', 
   },
   headerTitle: {
-    fontSize: 26,
+    fontSize: 36,
     fontWeight: 'bold',
     color: '#fff',
+    alignSelf: 'center',
   },
   trackPointsContainer: {
     backgroundColor: '#ffefd5',
@@ -156,10 +157,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 30,
     fontWeight: '600',
     marginTop: 20,
     color: '#ffffff',
+    alignItems: 'center',
   },
   goalItem: {
     fontSize: 16,
@@ -177,6 +179,7 @@ const styles = StyleSheet.create({
   },
   goalContainer: {
     marginVertical: 10,
+    marginHorizontal: 10,
   },
   customProgressBar: {
     borderRadius: 20,
