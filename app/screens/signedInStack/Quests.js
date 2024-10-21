@@ -5,7 +5,7 @@ import Button from '../../components/general/Button';
 import { ProgressBar } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import Animated from 'react-native-reanimated';
-import { Circle } from 'react-native-svg';
+import Svg, { Circle } from 'react-native-svg'
 
 // Define colors
 const colors = {
@@ -67,22 +67,33 @@ const QuestsScreen = () => {
     </View>
   );
 
-  const renderProgressCircle = () => {
-    return (
-      <View style={styles.circleContainer}>
-        <Text style={styles.progressPercentage}>{Math.round(progressPercentage * 100)}%</Text>
+const renderProgressCircle = () => {
+  return (
+    <View style={styles.circleContainer}>
+      <Svg height="100" width="100">
         <Circle
-          cx="50%"
-          cy="50%"
-          r="40%"
+          cx="50"
+          cy="50"
+          r="40"
           stroke={colors.accent}
           strokeWidth="20"
           fill="none"
           strokeDasharray={`${progressPercentage * 100} ${100 - progressPercentage * 100}`}
+          strokeLinecap="round"
         />
-      </View>
-    );
-  };
+        <Circle
+          cx="50"
+          cy="50"
+          r="40"
+          stroke="#ddd" // This can be a different color for the background circle
+          strokeWidth="20"
+          fill="none"
+        />
+      </Svg>
+      <Text style={styles.progressPercentage}>{Math.round(progressPercentage * 100)}%</Text>
+    </View>
+  );
+};
 
   return (
     <ScrollView style={styles.container}>
