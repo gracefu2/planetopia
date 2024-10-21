@@ -110,13 +110,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 50,
   },
+  headerTitle: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
+  },
   dateBox: {
-    backgroundColor: '#f7f3e9',
+    backgroundColor: '#ffefd5',
     padding: 10,
     borderRadius: 8,
     color: '#333',
     fontSize: 16,
     marginBottom: 5,
+    alignSelf: 'center', 
   },
   headerTitle: {
     fontSize: 26,
@@ -128,7 +135,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
-    marginBottom: 20,
+    marginTop: 20,
   },
   trackPointsText: {
     fontSize: 18,
