@@ -139,10 +139,13 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     padding: 20,
-    paddingTop: 40,
+    paddingTop: 10, // Adjusted for better vertical alignment
     marginBottom: 10,
     borderBottomWidth: 2,
     borderBottomColor: colors.secondary,
+    flexDirection: 'row', // Set the flex direction to row
+    justifyContent: 'space-between', // Space between title and button
+    alignItems: 'center', // Center vertically
   },
   headerTitle: {
     fontSize: 34,
@@ -251,29 +254,32 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
   },
   closeButton: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
+    alignSelf: 'flex-end',
   },
   closeButtonText: {
-    fontSize: 18,
+    fontSize: 20,
+    fontWeight: 'bold',
     color: colors.primary,
   },
   modalTitle: {
     fontSize: 24,
-    fontWeight: '600',
-    marginBottom: 20,
+    fontWeight: '700',
+    marginBottom: 10,
   },
   noGoalsContainer: {
     alignItems: 'center',
-    justifyContent: 'center',
     padding: 20,
   },
   divider: {
-    height: 1,
+    height: 2,
     backgroundColor: colors.secondary,
-    marginVertical: 20,
+    marginVertical: 10,
   },
 });
