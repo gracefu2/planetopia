@@ -71,7 +71,7 @@ const QuestsScreen = () => {
   return (
     <ScrollView style={styles.container}>
       {/* Gradient Header Section */}
-      <LinearGradient colors={['#0f5381', '#66c6d9']} style={styles.headerContainer}>
+      <LinearGradient colors={['#66c6d9', '#0f5381']} style={styles.headerContainer}>
         <Text style={styles.dateBox}>{today}</Text>
         <Text style={styles.headerTitle}>My Quests</Text>
 
