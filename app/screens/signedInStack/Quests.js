@@ -5,6 +5,16 @@ import Button from '../../components/general/Button';
 import { ProgressBar } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 
+// Define colors
+const colors = {
+  primary: '#FF6F61',       // Your existing primary color
+  secondary: '#b3d99e',     // Existing secondary color
+  accent: '#71cabb',         // Existing accent color
+  background: '#ffefd5',     // Existing background color
+  text: '#333',              // Text color for better readability
+  white: '#fff',             // White color for contrast
+};
+
 const QuestsScreen = () => {
   const navigation = useNavigation()
   const [weeklyProgress] = useState([
@@ -110,35 +120,31 @@ export default QuestsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffefd5',
+    backgroundColor: colors.background,
   },
   headerContainer: {
-    paddingHorizontal: 16,
-    paddingVertical: 50,
+    padding: 20,
+    marginBottom: 10,
+    borderBottomWidth: 2,
+    borderBottomColor: colors.secondary,
   },
   headerTitle: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontSize: 34,
+    fontWeight: '700',
+    color: colors.white,
     textAlign: 'center',
   },
   dateBox: {
-    backgroundColor: '#ffefd5',
+    backgroundColor: colors.background,
     padding: 10,
     borderRadius: 8,
-    color: '#333',
+    color: colors.text,
     fontSize: 16,
     marginBottom: 5,
-    alignSelf: 'center', 
-  },
-  headerTitle: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: '#fff',
     alignSelf: 'center',
   },
   trackPointsContainer: {
-    backgroundColor: '#ffefd5',
+    backgroundColor: colors.background,
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
@@ -148,39 +154,36 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     marginBottom: 10,
-    color: '#333',
-  },
-  trackPointsButton: {
-    backgroundColor: '#a73d3f',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 8,
+    color: colors.text,
   },
   sectionTitle: {
-    fontSize: 26,
-    fontWeight: '600',
-    marginTop: 20,
-    color: '#ffffff',
-    alignItems: 'center',
-  },
-  goalItem: {
-    fontSize: 16,
-    marginVertical: 5,
-    padding: 10,
-    backgroundColor: 'transparent',
-    borderRadius: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between', 
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 5,
-    marginHorizontal: 10,
+    fontSize: 28,
+    fontWeight: '700',
+    color: colors.primary,
+    marginVertical: 10,
   },
   goalsContainer: {
-    paddingHorizontal: 16, 
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     marginVertical: 10,
+    backgroundColor: colors.white,
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 3,
+  },
+  goalItem: {
+    marginVertical: 8,
+    padding: 15,
+    backgroundColor: colors.secondary,
+    borderRadius: 12,
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#e0e0e0',
+    marginVertical: 5,
   },
   customProgressBar: {
     borderRadius: 20,
