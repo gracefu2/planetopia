@@ -44,7 +44,7 @@ const QuestsScreen = () => {
         <FlatList
           data={data}
           renderItem={({ item }) => (
-            <LinearGradient key={item.id} colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.goalItem}>
+            <LinearGradient key={item.id} colors={['#0f5381', '#66c6d9']} style={styles.goalItem}>
               <View style={styles.goalTextContainer}>
                 <Text style={styles.goalTitle}>{item.title}</Text>
                 <Text style={styles.goalProgressText}>{item.progress} / {item.total}</Text>
@@ -71,7 +71,7 @@ const QuestsScreen = () => {
   return (
     <ScrollView style={styles.container}>
       {/* Gradient Header Section */}
-      <LinearGradient colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.headerContainer}>
+      <LinearGradient colors={['#0f5381', '#66c6d9']} style={styles.headerContainer}>
         <Text style={styles.dateBox}>{today}</Text>
         <Text style={styles.headerTitle}>My Quests</Text>
 
@@ -171,7 +171,6 @@ const styles = StyleSheet.create({
   goalItem: {
     marginVertical: 8,
     padding: 15,
-    backgroundColor: colors.secondary,
     borderRadius: 12,
   },
   customFatProgressBar: {
