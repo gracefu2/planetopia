@@ -50,8 +50,11 @@ const QuestsScreen = () => {
               data={weeklyProgress}
               renderItem={({ item }) => (
                 <LinearGradient key={item.id} colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.goalItem}>
-                  <Text>{item.title}</Text>
-                  <Text>{item.progress} / {item.total}</Text>
+                {/* Display goal title and numeric progress */}
+                    <View style={styles.goalTextContainer}>
+                      <Text style={styles.goalTitle}>{item.title}</Text>
+                      <Text style={styles.goalProgressText}>{item.progress} / {item.total}</Text>
+                    </View>
                   <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color="#FF6F61" style={styles.customProgressBar} />
                 </LinearGradient>
               )}
@@ -77,8 +80,11 @@ const QuestsScreen = () => {
               data={monthlyProgress}
               renderItem={({ item }) => (
                 <LinearGradient key={item.id} colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.goalItem}>
-                  <Text>{item.title}</Text>
-                  <Text>{item.progress} / {item.total}</Text>
+                    {/* Display goal title and numeric progress */}
+                    <View style={styles.goalTextContainer}>
+                      <Text style={styles.goalTitle}>{item.title}</Text>
+                      <Text style={styles.goalProgressText}>{item.progress} / {item.total}</Text>
+                    </View>
                   <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color="#FF6F61" style={styles.customProgressBar} />
                 </LinearGradient>
               )}
@@ -104,7 +110,7 @@ export default QuestsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e5efff',
+    backgroundColor: '#ffefd5',
   },
   headerContainer: {
     paddingHorizontal: 16,
