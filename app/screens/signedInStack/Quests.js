@@ -39,44 +39,44 @@ const QuestsScreen = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
 
-  const renderGoals = (data, title) => (
-    <View style={styles.goalsContainer}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.sectionTitle}>{title}</Text>
-        <TouchableOpacity
-          style={styles.addButton}
-          onPress={() => setModalVisible(true)}
-        >
-          <Text style={styles.addButtonText}>+ New Goal</Text>
-        </TouchableOpacity>
-      </View>
-      {data.length > 0 ? (
-        <FlatList
-          data={data}
-          renderItem={({ item }) => (
-            <LinearGradient key={item.id} colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.goalItem}>
-              <View style={styles.goalTextContainer}>
-                <Text style={styles.goalTitle}>{item.title}</Text>
-                <Text style={styles.goalProgressText}>{item.progress} / {item.total}</Text>
-              </View>
-              <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color="#FF6F61" style={styles.customProgressBar} />
-            </LinearGradient>
-          )}
-          keyExtractor={item => item.id}
-          scrollEnabled={false} // Disable scrolling for FlatList to allow the ScrollView to handle it
-        />
-      ) : (
-        <View style={styles.noGoalsContainer}>
-          <Text style={styles.noGoalsText}>Oh no! It looks like you have no {title.toLowerCase()}!</Text>
-          <Button
-            text={`Add ${title}`}
-            onPress={() => navigation.navigate('AddGoalScreen')}
-            style={styles.trackPointsButton}
-          />
-        </View>
-      )}
+const renderGoals = (data, title) => (
+  <View style={styles.goalsContainer}>
+    <View style={styles.headerContainer}>
+      <Text style={styles.sectionTitle}>{title}</Text>
+      <TouchableOpacity
+        style={styles.addButton}
+        onPress={() => setModalVisible(true)}
+      >
+        <Text style={styles.addButtonText}>+ New Goal</Text>
+      </TouchableOpacity>
     </View>
-  );
+    {data.length > 0 ? (
+      <FlatList
+        data={data}
+        renderItem={({ item }) => (
+          <LinearGradient key={item.id} colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.goalItem}>
+            <View style={styles.goalTextContainer}>
+              <Text style={styles.goalTitle}>{item.title}</Text>
+              <Text style={styles.goalProgressText}>{item.progress} / {item.total}</Text>
+            </View>
+            <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color="#FF6F61" style={styles.customProgressBar} />
+          </LinearGradient>
+        )}
+        keyExtractor={item => item.id}
+        scrollEnabled={false}
+      />
+    ) : (
+      <View style={styles.noGoalsContainer}>
+        <Text style={styles.noGoalsText}>Oh no! It looks like you have no {title.toLowerCase()}!</Text>
+        <Button
+          text={`Add ${title}`}
+          onPress={() => navigation.navigate('AddGoalScreen')}
+          style={styles.trackPointsButton}
+        />
+      </View>
+    )}
+  </View>
+);
 
   return (
     <ScrollView style={styles.container}>
@@ -137,20 +137,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-  headerContainer: {
-    padding: 20,
-    paddingTop: 40,
-    marginBottom: 10,
-    borderBottomWidth: 2,
-    borderBottomColor: colors.secondary,
-    alignItems: 'center', // Center elements in the header
-  },
+headerContainer: {
+  padding: 20,
+  paddingTop: 10, // Adjusted for better vertical alignment
+  marginBottom: 10,
+  borderBottomWidth: 2,
+  borderBottomColor: colors.secondary,
+  flexDirection: 'row', // Align items in a row
+  justifyContent: 'space-between', // Space between title and button
+  alignItems: 'center', // Center align vertically
+},
   headerTitle: {
     fontSize: 34,
     fontWeight: '700',
     color: colors.white,
     textAlign: 'center',
-    marginVertical: 10, // Add margin for spacing
+    marginVertical: 5, // Reduced margin for less spacing
   },
   dateBox: {
     backgroundColor: colors.accent,
@@ -158,12 +160,12 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     color: colors.text,
     fontSize: 16,
-    marginBottom: 10,
+    marginBottom: 5, // Reduced margin for less spacing
     alignSelf: 'center',
   },
   trackPointsContainer: {
     backgroundColor: colors.background,
-    padding: 20, // Increased padding for better layout
+    padding: 15,
     borderRadius: 10,
     alignItems: 'center',
     marginTop: 10,
@@ -171,24 +173,24 @@ const styles = StyleSheet.create({
   trackPointsText: {
     fontSize: 18,
     fontWeight: '600',
-    marginBottom: 10,
+    marginBottom: 5, // Reduced margin for less spacing
     color: colors.text,
   },
   goalText: {
     fontSize: 16,
     fontWeight: '500',
     color: colors.text,
-    marginBottom: 10,
+    marginBottom: 5, // Reduced margin for less spacing
   },
   sectionTitle: {
     fontSize: 28,
     fontWeight: '700',
     color: colors.primary,
-    marginVertical: 10,
+    marginVertical: 5, // Reduced margin for less spacing
   },
   goalsContainer: {
     paddingHorizontal: 20,
-    paddingVertical: 15, // Increased padding for better spacing
+    paddingVertical: 10, // Reduced vertical padding
     marginVertical: 10,
     backgroundColor: colors.white,
     borderRadius: 12,
@@ -197,6 +199,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 6,
     elevation: 3,
+  },
+  headerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between', // Ensure space between title and button
+    alignItems: 'center',
+    marginBottom: 10, // Added margin to separate from goal items
   },
   addButton: {
     backgroundColor: colors.primary,
@@ -208,11 +216,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   goalItem: {
-    marginVertical: 8,
+    marginVertical: 5, // Reduced vertical margin for less spacing
     padding: 15,
     backgroundColor: colors.secondary,
     borderRadius: 12,
-    flexDirection: 'column', // Ensure text and progress are stacked
   },
   customFatProgressBar: {
     borderRadius: 20,
