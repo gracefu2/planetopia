@@ -1,22 +1,22 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import Button from '../../components/general/Button';
 import { ProgressBar } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 
 // Define colors
 const colors = {
-  primary: '#FF6F61',       // Your existing primary color
-  secondary: '#b3d99e',     // Existing secondary color
-  accent: '#71cabb',         // Existing accent color
-  background: '#ffefd5',     // Existing background color
-  text: '#333',              // Text color for better readability
-  white: '#fff',             // White color for contrast
+  primary: '#FF6F61',
+  secondary: '#b3d99e',
+  accent: '#71cabb',
+  background: '#ffefd5',
+  text: '#333',
+  white: '#fff',
 };
 
 const QuestsScreen = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const [weeklyProgress] = useState([
     { id: '1', title: 'Bike 5 times', progress: 3, total: 5 },
     { id: '2', title: 'Drink out of a reusable water bottle 8 times', progress: 2, total: 8 },
@@ -29,6 +29,36 @@ const QuestsScreen = () => {
   ]);
 
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: '2-digit', year: 'numeric' });
+
+  const renderGoals = (data, title) => (
+    <View style={styles.goalsContainer}>
+      <Text style={styles.sectionTitle}>{title}</Text>
+      {data.length > 0 ? (
+        <FlatList
+          data={data}
+          renderItem={({ item }) => (
+            <LinearGradient key={item.id} colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.goalItem}>
+              <View style={styles.goalTextContainer}>
+                <Text style={styles.goalTitle}>{item.title}</Text>
+                <Text style={styles.goalProgressText}>{item.progress} / {item.total}</Text>
+              </View>
+              <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color="#FF6F61" style={styles.customProgressBar} />
+            </LinearGradient>
+          )}
+          keyExtractor={item => item.id}
+        />
+      ) : (
+        <View style={styles.noGoalsContainer}>
+          <Text style={styles.noGoalsText}>Oh no! It looks like you have no {title.toLowerCase()}!</Text>
+          <Button
+            text={`Add ${title}`}
+            onPress={() => navigation.navigate('AddGoalScreen')}
+            style={styles.trackPointsButton}
+          />
+        </View>
+      )}
+    </View>
+  );
 
   return (
     <View style={styles.container}>
@@ -51,68 +81,10 @@ const QuestsScreen = () => {
 
       {/* Divider */}
       <View style={styles.divider} />
- {/* Wrap everything inside ScrollView */}
-      <ScrollView>
-        {/* Weekly Goals Section */}
-        <View style={styles.goalsContainer}>
-          <Text style={styles.sectionTitle}>Weekly Goals</Text>
-          {weeklyProgress.length > 0 ? (
-            <FlatList
-              data={weeklyProgress}
-              renderItem={({ item }) => (
-                <LinearGradient key={item.id} colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.goalItem}>
-                {/* Display goal title and numeric progress */}
-                    <View style={styles.goalTextContainer}>
-                      <Text style={styles.goalTitle}>{item.title}</Text>
-                      <Text style={styles.goalProgressText}>{item.progress} / {item.total}</Text>
-                    </View>
-                  <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color="#FF6F61" style={styles.customProgressBar} />
-                </LinearGradient>
-              )}
-              keyExtractor={item => item.id}
-            />
-          ) : (
-            <View style={styles.noGoalsContainer}>
-              <Text style={styles.noGoalsText}>Oh no! It looks like you have no weekly goals!</Text>
-              <Button
-                text="Add Weekly Goal"
-                onPress={() => navigation.navigate('AddGoalScreen')}
-                style={styles.trackPointsButton}
-              />
-            </View>
-          )}
-        </View>
-        
-        {/* Monthly Goals Section */}
-        <View style={styles.goalsContainer}>
-          <Text style={styles.sectionTitle}>Monthly Goals</Text>
-          {monthlyProgress.length > 0 ? (
-            <FlatList
-              data={monthlyProgress}
-              renderItem={({ item }) => (
-                <LinearGradient key={item.id} colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.goalItem}>
-                    {/* Display goal title and numeric progress */}
-                    <View style={styles.goalTextContainer}>
-                      <Text style={styles.goalTitle}>{item.title}</Text>
-                      <Text style={styles.goalProgressText}>{item.progress} / {item.total}</Text>
-                    </View>
-                  <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color="#FF6F61" style={styles.customProgressBar} />
-                </LinearGradient>
-              )}
-              keyExtractor={item => item.id}
-            />
-          ) : (
-            <View style={styles.noGoalsContainer}>
-              <Text style={styles.noGoalsText}>Yikes! No monthly goals yet!</Text>
-              <Button
-                text="Add Monthly Goal"
-                onPress={() => navigation.navigate('AddGoalScreen')}
-                style={styles.trackPointsButton}
-              />
-            </View>
-          )}
-        </View>
-      </ScrollView> {/* Closing ScrollView */}
+
+      {/* Goals Sections */}
+      {renderGoals(weeklyProgress, 'Weekly Goals')}
+      {renderGoals(monthlyProgress, 'Monthly Goals')}
     </View>
   );
 };
@@ -181,11 +153,6 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: colors.secondary,
     borderRadius: 12,
-  },
-  separator: {
-    height: 1,
-    backgroundColor: '#e0e0e0',
-    marginVertical: 5,
   },
   customProgressBar: {
     borderRadius: 20,
