@@ -49,7 +49,7 @@ const QuestsScreen = () => {
                 <Text style={styles.goalTitle}>{item.title}</Text>
                 <Text style={styles.goalProgressText}>{item.progress} / {item.total}</Text>
               </View>
-              <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color={colors.secondary} style={styles.customProgressBar} /> {/* Updated to green */}
+              <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color={colors.secondary} style={styles.customProgressBar} />
             </LinearGradient>
           )}
           keyExtractor={item => item.id}
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     height: 20, 
     marginTop: 10,
-    backgroundColor: '#FFD9D9',
+    backgroundColor: colors.secondary, // Updated to green
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     height: 12,
     marginTop: 10,
-    backgroundColor: '#FFD9D9',
+    backgroundColor: colors.secondary, // Updated to green
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
