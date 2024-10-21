@@ -8,7 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 // Define colors
 const colors = {
   primary: '#FF6F61',
-  secondary: '#b3d99e', // This is your green color
+  secondary: '#b3d99e',
   accent: '#71cabb',
   background: '#ffefd5',
   text: '#333',
@@ -49,7 +49,7 @@ const QuestsScreen = () => {
                 <Text style={styles.goalTitle}>{item.title}</Text>
                 <Text style={styles.goalProgressText}>{item.progress} / {item.total}</Text>
               </View>
-              <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color={colors.secondary} style={styles.customProgressBar} />
+              <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color="#FF6F61" style={styles.customProgressBar} />
             </LinearGradient>
           )}
           keyExtractor={item => item.id}
@@ -59,7 +59,7 @@ const QuestsScreen = () => {
         <View style={styles.noGoalsContainer}>
           <Text style={styles.noGoalsText}>Oh no! It looks like you have no {title.toLowerCase()}!</Text>
           <Button
-            text={`Add ${title}`}
+            text={Add ${title}}
             onPress={() => navigation.navigate('AddGoalScreen')}
             style={styles.trackPointsButton}
           />
@@ -81,13 +81,13 @@ const QuestsScreen = () => {
           <Text style={styles.goalText}>Goal: {dailyPointsGoal} Points</Text>
           <ProgressBar 
             progress={currentDailyPoints / dailyPointsGoal} 
-            color={colors.secondary} // Updated to green
+            color="#FF6F61" 
             style={styles.customFatProgressBar} 
           />
           <Button
             text="+ Track points"
             onPress={() => navigation.navigate('PointsCalculator', { onAddPoints: handleAddPoints })}
-            style={[styles.trackPointsButton, { backgroundColor: colors.secondary }]} // Use the green color
+            style={[styles.trackPointsButton, { backgroundColor: colors.secondary }]} // Use the primary color
           />
         </View>
       </LinearGradient>
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     height: 20, 
     marginTop: 10,
-    backgroundColor: colors.secondary, // Updated to green
+    backgroundColor: '#FFD9D9',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     height: 12,
     marginTop: 10,
-    backgroundColor: colors.secondary, // Updated to green
+    backgroundColor: '#FFD9D9',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
@@ -201,4 +201,4 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: 'center',
   },
-});
+})
