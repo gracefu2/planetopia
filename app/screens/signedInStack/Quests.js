@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ScrollView } from 'react-native';
 import Button from '../../components/general/Button';
 import { ProgressBar } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -46,6 +46,7 @@ const QuestsScreen = () => {
             </LinearGradient>
           )}
           keyExtractor={item => item.id}
+          scrollEnabled={false}  // Disable scrolling for FlatList to allow the ScrollView to handle it
         />
       ) : (
         <View style={styles.noGoalsContainer}>
@@ -61,7 +62,7 @@ const QuestsScreen = () => {
   );
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {/* Gradient Header Section */}
       <LinearGradient colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.headerContainer}>
         <Text style={styles.dateBox}>{today}</Text>
@@ -85,7 +86,7 @@ const QuestsScreen = () => {
       {/* Goals Sections */}
       {renderGoals(weeklyProgress, 'Weekly Goals')}
       {renderGoals(monthlyProgress, 'Monthly Goals')}
-    </View>
+    </ScrollView>
   );
 };
 
