@@ -42,11 +42,14 @@ const QuestsScreen = () => {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.goalContainer}>
-            <Text style={styles.goalItem}>{item.title}</Text>
-            <ProgressBar progress={item.progress / item.total} color="#4caf50" style={styles.progressBar} />
+            <View style={styles.goalItem}>
+              <Text>{item.title}</Text>
+              <Text>{item.progress} / {item.total}</Text>
           </View>
-        )}
-      />
+          <ProgressBar progress={item.progress / item.total} color="#4caf50" style={styles.progressBar} />
+          </View>
+  )}
+/>
 
       <Button
         text="+ Track points"
@@ -83,7 +86,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     padding: 10,
     backgroundColor: '#ef8332',
-    borderRadius: 15,
+    borderRadius: 10,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
