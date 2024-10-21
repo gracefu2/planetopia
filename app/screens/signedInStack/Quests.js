@@ -254,11 +254,6 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 5,
   },
   closeButton: {
     position: 'absolute',
@@ -267,13 +262,12 @@ const styles = StyleSheet.create({
   },
   closeButtonText: {
     fontSize: 18,
-    fontWeight: 'bold',
     color: colors.primary,
   },
   modalTitle: {
     fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 15,
+    fontWeight: '600',
+    marginBottom: 20,
   },
   noGoalsContainer: {
     alignItems: 'center',
@@ -283,6 +277,6 @@ const styles = StyleSheet.create({
   divider: {
     height: 1,
     backgroundColor: colors.secondary,
-    marginVertical: 10,
+    marginVertical: 20,
   },
 });
