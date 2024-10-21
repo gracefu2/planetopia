@@ -143,15 +143,17 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderBottomWidth: 2,
     borderBottomColor: colors.secondary,
+    alignItems: 'center', // Center elements in the header
   },
   headerTitle: {
     fontSize: 34,
     fontWeight: '700',
     color: colors.white,
     textAlign: 'center',
+    marginVertical: 10, // Add margin for spacing
   },
   dateBox: {
-    backgroundColor: colors.background,
+    backgroundColor: colors.accent,
     padding: 10,
     borderRadius: 8,
     color: colors.text,
@@ -161,7 +163,7 @@ const styles = StyleSheet.create({
   },
   trackPointsContainer: {
     backgroundColor: colors.background,
-    padding: 15,
+    padding: 20, // Increased padding for better layout
     borderRadius: 10,
     alignItems: 'center',
     marginTop: 10,
@@ -186,7 +188,7 @@ const styles = StyleSheet.create({
   },
   goalsContainer: {
     paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingVertical: 15, // Increased padding for better spacing
     marginVertical: 10,
     backgroundColor: colors.white,
     borderRadius: 12,
@@ -210,10 +212,11 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: colors.secondary,
     borderRadius: 12,
+    flexDirection: 'column', // Ensure text and progress are stacked
   },
   customFatProgressBar: {
     borderRadius: 20,
-    height: 20, 
+    height: 20,
     marginTop: 10,
     backgroundColor: '#FFD9D9',
     shadowColor: '#000',
@@ -234,7 +237,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   noGoalsText: {
-    color: '#fff',
+    color: colors.primary, // Changed to primary color for better visibility
     fontStyle: 'italic',
     marginTop: 10,
     textAlign: 'center',
@@ -251,6 +254,11 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     alignItems: 'center',
+    shadowColor: '#000', // Added shadow for better visibility
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
   },
   closeButton: {
     position: 'absolute',
@@ -265,6 +273,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '600',
     marginBottom: 20,
+    color: colors.primary, // Changed to primary for consistency
   },
   noGoalsContainer: {
     alignItems: 'center',
