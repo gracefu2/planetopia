@@ -39,44 +39,44 @@ const QuestsScreen = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
 
-const renderGoals = (data, title) => (
-  <View style={styles.goalsContainer}>
-    <View style={styles.headerContainer}>
-      <Text style={styles.sectionTitle}>{title}</Text>
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={() => setModalVisible(true)}
-      >
-        <Text style={styles.addButtonText}>+ New Goal</Text>
-      </TouchableOpacity>
-    </View>
-    {data.length > 0 ? (
-      <FlatList
-        data={data}
-        renderItem={({ item }) => (
-          <LinearGradient key={item.id} colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.goalItem}>
-            <View style={styles.goalTextContainer}>
-              <Text style={styles.goalTitle}>{item.title}</Text>
-              <Text style={styles.goalProgressText}>{item.progress} / {item.total}</Text>
-            </View>
-            <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color="#FF6F61" style={styles.customProgressBar} />
-          </LinearGradient>
-        )}
-        keyExtractor={item => item.id}
-        scrollEnabled={false}
-      />
-    ) : (
-      <View style={styles.noGoalsContainer}>
-        <Text style={styles.noGoalsText}>Oh no! It looks like you have no {title.toLowerCase()}!</Text>
-        <Button
-          text={`Add ${title}`}
-          onPress={() => navigation.navigate('AddGoalScreen')}
-          style={styles.trackPointsButton}
-        />
+  const renderGoals = (data, title) => (
+    <View style={styles.goalsContainer}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.sectionTitle}>{title}</Text>
+        <TouchableOpacity
+          style={styles.addButton}
+          onPress={() => setModalVisible(true)}
+        >
+          <Text style={styles.addButtonText}>+ New Goal</Text>
+        </TouchableOpacity>
       </View>
-    )}
-  </View>
-);
+      {data.length > 0 ? (
+        <FlatList
+          data={data}
+          renderItem={({ item }) => (
+            <LinearGradient key={item.id} colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.goalItem}>
+              <View style={styles.goalTextContainer}>
+                <Text style={styles.goalTitle}>{item.title}</Text>
+                <Text style={styles.goalProgressText}>{item.progress} / {item.total}</Text>
+              </View>
+              <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color="#FF6F61" style={styles.customProgressBar} />
+            </LinearGradient>
+          )}
+          keyExtractor={item => item.id}
+          scrollEnabled={false} // Disable scrolling for FlatList to allow the ScrollView to handle it
+        />
+      ) : (
+        <View style={styles.noGoalsContainer}>
+          <Text style={styles.noGoalsText}>Oh no! It looks like you have no {title.toLowerCase()}!</Text>
+          <Button
+            text={`Add ${title}`}
+            onPress={() => navigation.navigate('AddGoalScreen')}
+            style={styles.trackPointsButton}
+          />
+        </View>
+      )}
+    </View>
+  );
 
   return (
     <ScrollView style={styles.container}>
@@ -137,27 +137,26 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-headerContainer: {
-  padding: 20,
-  paddingTop: 10, // Adjusted for better vertical alignment
-  marginBottom: 10,
-  borderBottomWidth: 2,
-  borderBottomColor: colors.secondary,
-},
+  headerContainer: {
+    padding: 20,
+    paddingTop: 40,
+    marginBottom: 10,
+    borderBottomWidth: 2,
+    borderBottomColor: colors.secondary,
+  },
   headerTitle: {
     fontSize: 34,
     fontWeight: '700',
     color: colors.white,
     textAlign: 'center',
-    marginVertical: 5, // Reduced margin for less spacing
   },
   dateBox: {
-    backgroundColor: colors.accent,
+    backgroundColor: colors.background,
     padding: 10,
     borderRadius: 8,
     color: colors.text,
     fontSize: 16,
-    marginBottom: 5, // Reduced margin for less spacing
+    marginBottom: 10,
     alignSelf: 'center',
   },
   trackPointsContainer: {
@@ -170,24 +169,24 @@ headerContainer: {
   trackPointsText: {
     fontSize: 18,
     fontWeight: '600',
-    marginBottom: 5, // Reduced margin for less spacing
+    marginBottom: 10,
     color: colors.text,
   },
   goalText: {
     fontSize: 16,
     fontWeight: '500',
     color: colors.text,
-    marginBottom: 5, // Reduced margin for less spacing
+    marginBottom: 10,
   },
   sectionTitle: {
     fontSize: 28,
     fontWeight: '700',
     color: colors.primary,
-    marginVertical: 5, // Reduced margin for less spacing
+    marginVertical: 10,
   },
   goalsContainer: {
     paddingHorizontal: 20,
-    paddingVertical: 10, // Reduced vertical padding
+    paddingVertical: 10,
     marginVertical: 10,
     backgroundColor: colors.white,
     borderRadius: 12,
@@ -196,12 +195,6 @@ headerContainer: {
     shadowOpacity: 0.2,
     shadowRadius: 6,
     elevation: 3,
-  },
-  headerRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between', // Ensure space between title and button
-    alignItems: 'center',
-    marginBottom: 10, // Added margin to separate from goal items
   },
   addButton: {
     backgroundColor: colors.primary,
@@ -213,14 +206,14 @@ headerContainer: {
     fontWeight: '600',
   },
   goalItem: {
-    marginVertical: 5, // Reduced vertical margin for less spacing
+    marginVertical: 8,
     padding: 15,
     backgroundColor: colors.secondary,
     borderRadius: 12,
   },
   customFatProgressBar: {
     borderRadius: 20,
-    height: 20,
+    height: 20, 
     marginTop: 10,
     backgroundColor: '#FFD9D9',
     shadowColor: '#000',
@@ -241,7 +234,7 @@ headerContainer: {
     elevation: 5,
   },
   noGoalsText: {
-    color: colors.primary, // Changed to primary color for better visibility
+    color: '#fff',
     fontStyle: 'italic',
     marginTop: 10,
     textAlign: 'center',
@@ -258,11 +251,6 @@ headerContainer: {
     padding: 20,
     borderRadius: 10,
     alignItems: 'center',
-    shadowColor: '#000', // Added shadow for better visibility
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
-    elevation: 5,
   },
   closeButton: {
     position: 'absolute',
@@ -277,7 +265,6 @@ headerContainer: {
     fontSize: 24,
     fontWeight: '600',
     marginBottom: 20,
-    color: colors.primary, // Changed to primary for consistency
   },
   noGoalsContainer: {
     alignItems: 'center',
