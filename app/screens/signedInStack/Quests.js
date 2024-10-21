@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ScrollView } from 'react-native';
 import Button from '../../components/general/Button';
 import { ProgressBar } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
