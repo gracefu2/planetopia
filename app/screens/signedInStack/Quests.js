@@ -27,8 +27,15 @@ const QuestsScreen = () => {
     { id: '1', title: 'Plant 2 trees', progress: 0, total: 2 },
     { id: '2', title: 'Walk 20 miles total', progress: 10, total: 20 },
   ]);
+  
+  const dailyPointsGoal = 50;
+  const [currentDailyPoints, setCurrentDailyPoints] = useState(0);
 
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: '2-digit', year: 'numeric' });
+
+  const handleAddPoints = (points) => {
+    setCurrentDailyPoints(prevPoints => Math.min(prevPoints + points, dailyPointsGoal));
+  };
 
   const renderGoals = (data, title) => (
     <View style={styles.goalsContainer}>
@@ -156,6 +163,17 @@ const styles = StyleSheet.create({
     backgroundColor: colors.secondary,
     borderRadius: 12,
   },
+  customFatProgressBar: {
+    borderRadius: 20,
+    height: 20, // Make the progress bar taller
+    marginTop: 10,
+    backgroundColor: '#FFD9D9',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
+    },
   customProgressBar: {
     borderRadius: 20,
     height: 12,
