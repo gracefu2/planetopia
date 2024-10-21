@@ -7,6 +7,24 @@ import Button from '../../components/general/Button';
 
 const Tab = createMaterialTopTabNavigator();
 
+const getColorFromRank = (rank, totalUsers) => {
+  // Calculate the color based on the rank (1-indexed)
+  const percentage = rank / totalUsers;
+
+  // Color gradient
+  if (percentage <= 0.5) {
+    // From red to yellow
+    const red = 255;
+    const green = Math.floor(255 * (percentage * 2));
+    return `rgb(${red}, ${green}, 0)`; // RGB color from red to yellow
+  } else {
+    // From yellow to green
+    const green = 255;
+    const red = Math.floor(255 * (1 - (percentage - 0.5) * 2));
+    return `rgb(${red}, ${green}, 0)`; // RGB color from yellow to green
+  }
+};
+
 const LeaderboardScreen = () => {
   const [users, setUsers] = useState([]);
 
@@ -25,8 +43,8 @@ const LeaderboardScreen = () => {
       <FlatList
         data={users.sort((a, b) => b.points - a.points)} // Sort by points
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.userCard}>
+        renderItem={({ item, index }) => (
+          <View style={[styles.userCard, { backgroundColor: getColorFromRank(index + 1, users.length) }]}>
             <Text style={styles.username}>{item.name} <Text style={styles.usernameSubtitle}>({item.username})</Text></Text>
             <Text style={styles.points}>{item.points} points</Text>
           </View>
@@ -140,7 +158,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   userCard: {
-    backgroundColor: '#e8508d', // Card background color
     padding: 16,
     marginVertical: 6,
     borderRadius: 10,
