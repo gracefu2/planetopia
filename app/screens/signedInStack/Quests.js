@@ -44,7 +44,7 @@ const QuestsScreen = () => {
         <FlatList
           data={data}
           renderItem={({ item }) => (
-            <LinearGradient key={item.id} colors={['#0f5381', '#66c6d9']} style={styles.goalItem}>
+            <LinearGradient key={item.id} colors={['#66c6d9', '#0f5381']} style={styles.goalItem}>
               <View style={styles.goalTextContainer}>
                 <Text style={styles.goalTitle}>{item.title}</Text>
                 <Text style={styles.goalProgressText}>{item.progress} / {item.total}</Text>
