@@ -7,21 +7,21 @@ import Button from '../../components/general/Button';
 
 const Tab = createMaterialTopTabNavigator();
 
+// New pastel color gradient logic
 const getColorFromRank = (rank, totalUsers) => {
-  // Calculate the color based on the rank (1-indexed)
   const percentage = rank / totalUsers;
 
-  // Color gradient
+  // Pastel color gradient: bottom red, middle yellow, top green
   if (percentage <= 0.5) {
-    // From red to yellow
-    const red = 255;
-    const green = Math.floor(255 * (percentage * 2));
-    return `rgb(${red}, ${green}, 0)`; // RGB color from red to yellow
+    // From yellow to pastel red
+    const red = Math.floor(255 * (percentage * 2));
+    const green = 255; // Fixed green for yellow
+    return `rgb(${red}, ${green}, 0)`; // RGB color from yellow to pastel red
   } else {
-    // From yellow to green
+    // From pastel green to yellow
     const green = 255;
     const red = Math.floor(255 * (1 - (percentage - 0.5) * 2));
-    return `rgb(${red}, ${green}, 0)`; // RGB color from yellow to green
+    return `rgb(${red}, ${green}, 0)`; // RGB color from pastel green to yellow
   }
 };
 
