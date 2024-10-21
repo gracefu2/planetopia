@@ -20,42 +20,65 @@ const QuestsScreen = () => {
 
   return (
     <LinearGradient colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.container}>
-      <Text style={styles.title}>Quests</Text>
+      
+    {/* Heading Section */}
+      <View style={styles.headerContainer}>
+        <Text style={styles.dateBox}>October 20, 2024</Text>
+        <Text style={styles.headerTitle}>My Quests</Text>
+      </View>
+
+      {/* Track Points Section */}
+      <View style={styles.trackPointsContainer}>
+        <Text style={styles.trackPointsText}>Track Your Daily Points</Text>
+        <Button
+          text="+ Track points"
+          onPress={() => navigation.navigate('PointsCalculator')}
+          style={styles.trackPointsButton}
+        />
+      </View>
+
+      {/* Progress Section */}
       <Text style={styles.sectionTitle}>Weekly Goals</Text>
-      <FlatList
-        data={weeklyProgress}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.goalContainer}>
-            <View style={styles.goalItem}>
-              <Text>{item.title}</Text>
-              <Text>{item.progress} / {item.total}</Text>
+      {weeklyProgress.length > 0 ? (
+        <FlatList
+          data={weeklyProgress}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.goalContainer}>
+              <View style={styles.goalItem}>
+                <Text>{item.title}</Text>
+                <Text>{item.progress} / {item.total}</Text>
+              </View>
+              <ProgressBar progress={item.progress / item.total} color="#FF6F61" style={styles.customProgressBar} />
             </View>
-            <ProgressBar progress={item.progress / item.total} color="#4caf50" style={styles.progressBar} />
-          </View>
-        )}
-      />
+          )}
+        />
+      ) : (
+        <Text style={styles.noGoalsText}>Oh no! It looks like you have no weekly goals!</Text>
+      )}
 
       <Text style={styles.sectionTitle}>Monthly Goals</Text>
-      <FlatList
-        data={monthlyProgress}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.goalContainer}>
-            <View style={styles.goalItem}>
-              <Text>{item.title}</Text>
-              <Text>{item.progress} / {item.total}</Text>
-          </View>
-          <ProgressBar progress={item.progress / item.total} color="#4caf50" style={styles.progressBar} />
-          </View>
-  )}
-/>
-
-      <Button
-        text="+ Track points"
-        onPress={() => navigation.navigate('PointsCalculator')}
-        style={styles.button}
-      />
+      {monthlyProgress.length > 0 ? (
+        <FlatList
+          data={monthlyProgress}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.goalContainer}>
+              <View style={styles.goalItem}>
+                <Text>{item.title}</Text>
+                <Text>{item.progress} / {item.total}</Text>
+              </View>
+              <ProgressBar 
+                progress={item.total > 0 ? item.progress / item.total : 0} // Prevent division by zero
+                color="#FF6F61" 
+                style={styles.customProgressBar}  
+              />
+            </View>
+          )}
+        />
+        ) : (
+        <Text style={styles.noGoalsText}>Yikes! No monthly goals yet!</Text>
+      )}
     </LinearGradient>
   );
 };
@@ -66,20 +89,52 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
-    backgroundColor: 'red',
     paddingVertical: 50,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+  headerContainer: {
+    backgroundColor: '#a73d3f',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
     marginBottom: 20,
-    color: '#ffffff',
+  },
+  dateBox: {
+    backgroundColor: '#f7f3e9',
+    padding: 10,
+    borderRadius: 8,
+    color: '#333',
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  headerTitle: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  trackPointsContainer: {
+    backgroundColor: '#ffefd5',
+    padding: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  trackPointsText: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 10,
+    color: '#333',
+  },
+  trackPointsButton: {
+    backgroundColor: '#a73d3f',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 8,
   },
   sectionTitle: {
     fontSize: 20,
     fontWeight: '600',
     marginTop: 20,
-    color: '#ffffff', 
+    color: '#ffffff',
   },
   goalItem: {
     fontSize: 16,
@@ -88,19 +143,26 @@ const styles = StyleSheet.create({
     backgroundColor: '#ef8332',
     borderRadius: 10,
     flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-  goalText: {
-    color: '#ffffff',
-  },
-  button: {
-    marginTop: 20,
+    justifyContent: 'space-between',
   },
   goalContainer: {
     marginVertical: 10,
   },
-  progressBar: {
-    borderRadius: 10,
-    height: 10,
+  customProgressBar: {
+    borderRadius: 20,
+    height: 12,
+    marginTop: 10,
+    backgroundColor: '#FFD9D9',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  noGoalsText: {
+    color: '#fff',
+    fontStyle: 'italic',
+    marginTop: 10,
+    textAlign: 'center',
   },
 });
