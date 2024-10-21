@@ -4,6 +4,8 @@ import { View, Text, StyleSheet, FlatList, ScrollView } from 'react-native';
 import Button from '../../components/general/Button';
 import { ProgressBar } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
+import Animated from 'react-native-reanimated';
+import { Circle } from 'react-native-svg';
 
 // Define colors
 const colors = {
@@ -30,6 +32,10 @@ const QuestsScreen = () => {
 
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: '2-digit', year: 'numeric' });
 
+  const totalPoints = 20; // Change this based on your total points
+  const trackedPoints = 15; // Replace with the actual tracked points
+  const progressPercentage = trackedPoints / totalPoints;
+
   const renderGoals = (data, title) => (
     <View style={styles.goalsContainer}>
       <Text style={styles.sectionTitle}>{title}</Text>
@@ -46,7 +52,7 @@ const QuestsScreen = () => {
             </LinearGradient>
           )}
           keyExtractor={item => item.id}
-          scrollEnabled={false}  // Disable scrolling for FlatList to allow the ScrollView to handle it
+          scrollEnabled={false}
         />
       ) : (
         <View style={styles.noGoalsContainer}>
@@ -61,6 +67,23 @@ const QuestsScreen = () => {
     </View>
   );
 
+  const renderProgressCircle = () => {
+    return (
+      <View style={styles.circleContainer}>
+        <Text style={styles.progressPercentage}>{Math.round(progressPercentage * 100)}%</Text>
+        <Circle
+          cx="50%"
+          cy="50%"
+          r="40%"
+          stroke={colors.accent}
+          strokeWidth="20"
+          fill="none"
+          strokeDasharray={`${progressPercentage * 100} ${100 - progressPercentage * 100}`}
+        />
+      </View>
+    );
+  };
+
   return (
     <ScrollView style={styles.container}>
       {/* Gradient Header Section */}
@@ -71,7 +94,11 @@ const QuestsScreen = () => {
         {/* Track Points Section */}
         <View style={styles.trackPointsContainer}>
           <Text style={styles.trackPointsText}>Track Your Daily Points</Text>
-          <ProgressBar progress={0.75} color="#FF6F61" style={styles.customProgressBarHeader} />
+          {renderProgressCircle()}
+          <Text style={styles.motivationText}>
+            {trackedPoints < totalPoints ? 'Keep going!' : 'Great job! You reached your goal!'}
+          </Text>
+          <ProgressBar progress={progressPercentage} color="#FF6F61" style={styles.customProgressBarHeader} />
           <Button
             text="+ Track points"
             onPress={() => navigation.navigate('PointsCalculator')}
@@ -131,6 +158,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: colors.text,
   },
+  motivationText: {
+    fontSize: 16,
+    fontWeight: '400',
+    marginVertical: 10,
+    color: colors.primary,
+  },
   sectionTitle: {
     fontSize: 28,
     fontWeight: '700',
@@ -165,6 +198,20 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 5,
+  },
+  circleContainer: {
+    position: 'relative',
+    height: 100,
+    width: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 15,
+  },
+  progressPercentage: {
+    position: 'absolute',
+    fontSize: 18,
+    fontWeight: '700',
+    color: colors.primary,
   },
   noGoalsText: {
     color: '#fff',
