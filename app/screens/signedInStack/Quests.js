@@ -42,54 +42,58 @@ const QuestsScreen = () => {
       {/* Divider */}
       <View style={styles.divider} />
 
-{/* Weekly Goals Section */}
-      <View style={styles.goalsContainer}>
-        <Text style={styles.sectionTitle}>Weekly Goals</Text>
-        {weeklyProgress.length > 0 ? (
-          <View style={styles.goalsBox}>
-            {weeklyProgress.map(item => (
-              <LinearGradient key={item.id} colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.goalItem}> {/* Changed to gradient */}
-                <Text>{item.title}</Text>
-                <Text>{item.progress} / {item.total}</Text>
-                <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color="#FF6F61" style={styles.customProgressBar} /> {/* Added ProgressBar back */}
-              </LinearGradient>
-            ))}
-          </View>
-        ) : (
-          <View style={styles.noGoalsContainer}>
-            <Text style={styles.noGoalsText}>Oh no! It looks like you have no weekly goals!</Text>
-            <Button
-              text="Add Weekly Goal"
-              onPress={() => navigation.navigate('AddGoalScreen')} // Replace with your navigation logic
-              style={styles.trackPointsButton}
-            />
-          </View>
-        )}
-      </View>
-
-{/* Monthly Goals Section */}
+        {/* Weekly Goals Section */}
         <View style={styles.goalsContainer}>
-            <Text style={styles.sectionTitle}>Monthly Goals</Text>
-            {monthlyProgress.length > 0 ? (
-                <View style={styles.goalsBox}>
-                    {monthlyProgress.map(item => (
-                        <LinearGradient key={item.id} colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.goalItem}> {/* Changed to gradient */}
-                            <Text>{item.title}</Text>
-                            <Text>{item.progress} / {item.total}</Text>
-                            <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color="#FF6F61" style={styles.customProgressBar} />
-                        </LinearGradient>
-                    ))}
-                </View>
-            ) : (
-                <View style={styles.noGoalsContainer}>
-                    <Text style={styles.noGoalsText}>Yikes! No monthly goals yet!</Text>
-                    <Button
-                        text="Add Monthly Goal"
-                        onPress={() => navigation.navigate('AddGoalScreen')}
-                        style={styles.trackPointsButton}
-                    />
-                </View>
-            )}
+          <Text style={styles.sectionTitle}>Weekly Goals</Text>
+          {weeklyProgress.length > 0 ? (
+            <FlatList
+              data={weeklyProgress}
+              renderItem={({ item }) => (
+                <LinearGradient key={item.id} colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.goalItem}>
+                  <Text>{item.title}</Text>
+                  <Text>{item.progress} / {item.total}</Text>
+                  <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color="#FF6F61" style={styles.customProgressBar} />
+                </LinearGradient>
+              )}
+              keyExtractor={item => item.id}
+            />
+          ) : (
+            <View style={styles.noGoalsContainer}>
+              <Text style={styles.noGoalsText}>Oh no! It looks like you have no weekly goals!</Text>
+              <Button
+                text="Add Weekly Goal"
+                onPress={() => navigation.navigate('AddGoalScreen')}
+                style={styles.trackPointsButton}
+              />
+            </View>
+          )}
+        </View>
+        
+        {/* Monthly Goals Section */}
+        <View style={styles.goalsContainer}>
+          <Text style={styles.sectionTitle}>Monthly Goals</Text>
+          {monthlyProgress.length > 0 ? (
+            <FlatList
+              data={monthlyProgress}
+              renderItem={({ item }) => (
+                <LinearGradient key={item.id} colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.goalItem}>
+                  <Text>{item.title}</Text>
+                  <Text>{item.progress} / {item.total}</Text>
+                  <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color="#FF6F61" style={styles.customProgressBar} />
+                </LinearGradient>
+              )}
+              keyExtractor={item => item.id}
+            />
+          ) : (
+            <View style={styles.noGoalsContainer}>
+              <Text style={styles.noGoalsText}>Yikes! No monthly goals yet!</Text>
+              <Button
+                text="Add Monthly Goal"
+                onPress={() => navigation.navigate('AddGoalScreen')}
+                style={styles.trackPointsButton}
+              />
+            </View>
+          )}
         </View>
     </View>
   );
