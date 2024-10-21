@@ -143,9 +143,6 @@ headerContainer: {
   marginBottom: 10,
   borderBottomWidth: 2,
   borderBottomColor: colors.secondary,
-  flexDirection: 'row', // Align items in a row
-  justifyContent: 'space-between', // Space between title and button
-  alignItems: 'center', // Center align vertically
 },
   headerTitle: {
     fontSize: 34,
