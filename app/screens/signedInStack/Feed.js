@@ -5,7 +5,7 @@ import colors from '../../../theme/colors';
 import getNewsData from '../../../utils/getNewsData';
 import getGreeting from '../../../utils/getGreeting';
 import { useUser } from '../../../context/UserContext';
-import { LinearGradient } from 'expo-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient'; // Import LinearGradient
 
 const FeedScreen = () => {
   const userData = useUser();
@@ -28,8 +28,7 @@ const FeedScreen = () => {
 
   useEffect(() => {
     const fetchNews = async () => {
-      try {
-        const response = await getNewsData();
+      getNewsData().then(response => {
         let newCategorizedArticles = {
           "All": response.data.articles.results, 
           "Climate Change": [],
@@ -44,7 +43,9 @@ const FeedScreen = () => {
             return splits[splits.length - 1];
           });
 
-          const catsFiltered = [...new Set(cats)]; // Filter out duplicates
+          const catsFiltered = cats.filter((item, pos) => {
+            return cats.indexOf(item) === pos;
+          });
 
           catsFiltered.forEach(cat => {
             if (newCategorizedArticles[cat]) {
@@ -54,11 +55,11 @@ const FeedScreen = () => {
         });
 
         setCategorizedArticles(newCategorizedArticles);
-      } catch (err) {
-        console.error(err);
-      } finally {
         setLoading(false);
-      }
+      }).catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
     };
 
     fetchNews();
@@ -71,14 +72,14 @@ const FeedScreen = () => {
           <Text style={styles.title}>{message}</Text>
           <Text>{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: '2-digit', year: 'numeric' })}</Text>
         </View>
-        <ActivityIndicator size="large" color={colors.blue} />
+        <ActivityIndicator />
       </LinearGradient>
     );
   }
 
   return (
     <LinearGradient colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.container}>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView>
         <View style={styles.section}>
           <Text style={styles.title}>{message}</Text>
           <Text>{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: '2-digit', year: 'numeric' })}</Text>
@@ -101,15 +102,12 @@ const FeedScreen = () => {
           {categorizedArticles[selectedCategory]?.map(article => 
             <View style={{ flexDirection: 'column', backgroundColor: colors.white, borderRadius: sizing.sm }} key={article.url}>
               {article.image && 
-                <Image 
-                  style={{ borderTopLeftRadius: sizing.sm, borderTopRightRadius: sizing.sm, height: 150, width: "100%", resizeMode: 'cover' }} 
-                  source={{ uri: article.image }} 
-                />
+                <Image style={{ objectFit: 'cover', borderTopLeftRadius: sizing.sm, borderTopRightRadius: sizing.sm, height: 150, width: "100%" }} source={{ uri: article.image }} />
               }
-              <View style={{ padding: sizing.md }}>
+              <View style={{ width: '100%', flexShrink: 1, padding: sizing.md }}>
                 <Text style={styles.articleTitle}>{article.title}</Text>
                 <Text style={[styles.articleDescription, { color: colors.midGray }]}>
-                  {article.source.title ? `${article.source.title} · ` : ''}
+                  {article["source"]["title"] && `${article["source"]["title"]} · `}
                   {new Date(article.dateTime).toLocaleString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric', hour12: true, hour: '2-digit', minute: '2-digit' })}
                 </Text>
                 <Text style={styles.articleDescription}>{article.body.slice(0, 100)}...</Text>
