@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TextInput, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../firebase';
@@ -10,8 +10,8 @@ const Tab = createMaterialTopTabNavigator();
 
 const getColorFromRank = (rank, totalUsers) => {
   const percentage = rank / totalUsers;
-  const startColor = { r: 15, g: 83, b: 129 };
-  const endColor = { r: 102, g: 198, b: 217 };
+  const startColor = { r: 179, g: 217, b: 158 }; // #b3d99e
+  const endColor = { r: 44, g: 187, b: 217 }; // #2cbbd9
 
   const r = Math.floor(startColor.r + (endColor.r - startColor.r) * percentage);
   const g = Math.floor(startColor.g + (endColor.g - startColor.g) * percentage);
@@ -71,48 +71,45 @@ const FriendsScreen = () => {
   const [friends, setFriends] = useState([]);
   const [incomingFriendRequests, setIncomingFriendRequests] = useState([]);
   const [outgoingFriendRequests, setOutgoingFriendRequests] = useState([]);
-
-const [originalFriendsList, setOriginalFriendsList] = useState([]); // Store original list
-
-useEffect(() => {
-  // Fetch and set friends here
-  // setOriginalFriendsList(fetchedFriends); // After fetching
-}, []);
-
-const handleSearch = () => {
-  const filteredFriends = originalFriendsList.filter(friend =>
-    friend.username.toLowerCase().includes(search.toLowerCase())
-  );
-  setFriends(filteredFriends);
-};
-
-
-const AnimatedCard = ({ item }) => {
-  const animatedValue = new Animated.Value(0);
+  const [originalFriendsList, setOriginalFriendsList] = useState([]);
 
   useEffect(() => {
-    Animated.timing(animatedValue, {
-      toValue: 1,
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
+    // Fetch and set friends here
+    // setOriginalFriendsList(fetchedFriends); // After fetching
   }, []);
 
-  const scale = animatedValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0.8, 1],
-  });
+  const handleSearch = () => {
+    const filteredFriends = originalFriendsList.filter(friend =>
+      friend.username.toLowerCase().includes(search.toLowerCase())
+    );
+    setFriends(filteredFriends);
+  };
 
-  return (
-    <Animated.View style={{ transform: [{ scale }] }}>
-      <TouchableOpacity style={styles.userCard}>
-        <Icon name="person-circle" size={24} color="#0f5381" />
-        <Text style={styles.username}>{item.username}</Text>
-      </TouchableOpacity>
-    </Animated.View>
-  );
-};
+  const AnimatedCard = ({ item }) => {
+    const animatedValue = new Animated.Value(0);
 
+    useEffect(() => {
+      Animated.timing(animatedValue, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    }, []);
+
+    const scale = animatedValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0.8, 1],
+    });
+
+    return (
+      <Animated.View style={{ transform: [{ scale }] }}>
+        <TouchableOpacity style={styles.userCard}>
+          <Icon name="person-circle" size={24} color="#2cbbd9" /> {/* Adjusted color */}
+          <Text style={styles.username}>{item.username}</Text>
+        </TouchableOpacity>
+      </Animated.View>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -143,7 +140,7 @@ const AnimatedCard = ({ item }) => {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <View style={styles.requestCard}>
-              <Icon name="person-add" size={24} color="#0f5381" />
+              <Icon name="person-add" size={24} color="#2cbbd9" /> {/* Adjusted color */}
               <Text style={styles.username}>{item.username}</Text>
               <TouchableOpacity style={styles.requestButton}>
                 <Text style={styles.requestButtonText}>Accept</Text>
@@ -163,7 +160,7 @@ const AnimatedCard = ({ item }) => {
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <View style={styles.requestCard}>
-                <Icon name="person-remove" size={24} color="#0f5381" />
+                <Icon name="person-remove" size={24} color="#2cbbd9" /> {/* Adjusted color */}
                 <Text style={styles.username}>{item.username}</Text>
                 <TouchableOpacity style={styles.requestButton}>
                   <Text style={styles.requestButtonText}>Cancel</Text>
@@ -195,7 +192,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f9f9f9',
   },
   searchInput: {
-    borderColor: '#0f5381',
+    borderColor: '#2cbbd9', // Updated color
     borderWidth: 2,
     paddingHorizontal: 12,
     paddingVertical: 8,
@@ -208,18 +205,19 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     borderRadius: 10,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 }, // Increased shadow for depth
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.5,
     shadowRadius: 6,
-    elevation: 5, // Increased elevation for Android
+    elevation: 5,
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: '#71cabb', // Mid gradient color
   },
-    requestCard: {
+  requestCard: {
     padding: 16,
     marginVertical: 6,
     borderRadius: 10,
-    backgroundColor: '#aa60d1',
+    backgroundColor: '#b3d99e', // Lightest gradient color
     flexDirection: 'row',
     alignItems: 'center',
     shadowColor: '#000',
@@ -232,7 +230,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#fff',
-    marginLeft: 10, // Add some space between icon and text
+    marginLeft: 10,
   },
   usernameSubtitle: {
     fontSize: 16,
@@ -247,57 +245,41 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginVertical: 8,
-    color: '#0f5381',
+    color: '#2cbbd9', // Updated color
+  },
+  loadingMessage: {
+    textAlign: 'center',
+    fontSize: 24,
+    marginTop: 50,
+    color: '#2cbbd9', // Updated color
   },
   emptyMessage: {
     textAlign: 'center',
-    color: '#777',
-    marginTop: 20,
-  },
-  requestButton: {
-    backgroundColor: '#aa60d1',
-    borderRadius: 5,
-    padding: 8,
-    marginLeft: 'auto', // Align button to the right
-  },
-  requestButtonText: {
-    color: '#fff',
-    fontWeight: '600',
+    fontSize: 18,
+    marginTop: 50,
+    color: '#888',
   },
   rankBadge: {
-    backgroundColor: '#ffcc00', // Gold color for badge
+    backgroundColor: '#2cbbd9', // Darkest gradient color
     borderRadius: 50,
     width: 40,
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 10,
   },
   rankText: {
-    fontSize: 18,
+    color: '#fff',
     fontWeight: 'bold',
-    color: '#000',
   },
-  userInfo: {
-    flex: 1,
+  requestButton: {
+    marginLeft: 'auto',
+    backgroundColor: '#2cbbd9', // Updated color
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 6,
   },
-  username: {
-    fontSize: 18,
+  requestButtonText: {
+    color: '#fff',
     fontWeight: 'bold',
-    color: '#fff',
-  },
-  usernameSubtitle: {
-    fontSize: 16,
-    color: '#fff',
-    fontStyle: 'italic',
-  },
-  points: {
-    fontSize: 16,
-    color: '#fff',
-  },
-  emptyMessage: {
-    textAlign: 'center',
-    color: '#777',
-    marginTop: 20,
   },
 });
