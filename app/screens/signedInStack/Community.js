@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#ffefd5',
   },
   searchInput: {
     borderColor: '#2cbbd9', // Updated color
