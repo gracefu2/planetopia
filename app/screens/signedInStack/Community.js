@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     backgroundColor: '#fff',
   },
-  userCard: {
+   userCard: {
     padding: 16,
     marginVertical: 6,
     borderRadius: 10,
@@ -212,6 +212,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#71cabb', // Mid gradient color
+    justifyContent: 'space-between', // Added to space out items
   },
   requestCard: {
     padding: 16,
@@ -225,6 +226,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 6,
     elevation: 5,
+  },
+  userInfo: {
+    flex: 1, // Allow it to take up the remaining space
+    marginLeft: 10, // Added for some spacing
+    flexDirection: 'row', // Align items in a row
+    justifyContent: 'space-between', // Distribute space between name and points
+    alignItems: 'center', // Center align items vertically
   },
   username: {
     fontSize: 18,
