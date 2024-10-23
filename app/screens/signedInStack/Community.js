@@ -4,16 +4,14 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import Button from '../../components/general/Button';
+import Icon from 'react-native-vector-icons/Ionicons'; // Import icons
 
 const Tab = createMaterialTopTabNavigator();
 
-// New color gradient logic using hex colors
 const getColorFromRank = (rank, totalUsers) => {
   const percentage = rank / totalUsers;
-
-  // Calculate the color based on the rank
-  const startColor = { r: 15, g: 83, b: 129 }; // #0f5381
-  const endColor = { r: 102, g: 198, b: 217 }; // #66c6d9
+  const startColor = { r: 15, g: 83, b: 129 };
+  const endColor = { r: 102, g: 198, b: 217 };
 
   const r = Math.floor(startColor.r + (endColor.r - startColor.r) * percentage);
   const g = Math.floor(startColor.g + (endColor.g - startColor.g) * percentage);
@@ -38,7 +36,7 @@ const LeaderboardScreen = () => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={users.sort((a, b) => b.points - a.points)} // Sort by points
+        data={users.sort((a, b) => b.points - a.points)}
         keyExtractor={(item) => item.id}
         renderItem={({ item, index }) => (
           <View style={[styles.userCard, { backgroundColor: getColorFromRank(index + 1, users.length) }]}>
@@ -46,7 +44,7 @@ const LeaderboardScreen = () => {
             <Text style={styles.points}>{item.points} points</Text>
           </View>
         )}
-        ListEmptyComponent={<Text style={styles.emptyMessage}>No users found.</Text>} // Empty state message
+        ListEmptyComponent={<Text style={styles.emptyMessage}>No users found.</Text>}
       />
     </View>
   );
@@ -59,7 +57,6 @@ const FriendsScreen = () => {
   const [outgoingFriendRequests, setOutgoingFriendRequests] = useState([]);
 
   const handleSearch = () => {
-    // Implement search functionality here
     console.log('Searching for:', search);
   };
 
@@ -81,6 +78,7 @@ const FriendsScreen = () => {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <TouchableOpacity style={styles.userCard}>
+              <Icon name="person-circle" size={24} color="#0f5381" />
               <Text style={styles.username}>{item.username}</Text>
             </TouchableOpacity>
           )}
@@ -96,6 +94,7 @@ const FriendsScreen = () => {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <View style={styles.userCard}>
+              <Icon name="person-add" size={24} color="#0f5381" />
               <Text style={styles.username}>{item.username}</Text>
               <TouchableOpacity style={styles.requestButton}>
                 <Text style={styles.requestButtonText}>Accept</Text>
@@ -115,6 +114,7 @@ const FriendsScreen = () => {
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <View style={styles.userCard}>
+                <Icon name="person-remove" size={24} color="#0f5381" />
                 <Text style={styles.username}>{item.username}</Text>
                 <TouchableOpacity style={styles.requestButton}>
                   <Text style={styles.requestButtonText}>Cancel</Text>
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#f9f9f9', // Light background for contrast
+    backgroundColor: '#f9f9f9',
   },
   searchInput: {
     borderColor: '#0f5381',
@@ -163,11 +163,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 2,
     elevation: 3,
+    flexDirection: 'row',
+    alignItems: 'center', // Align items in the center
   },
   username: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#fff',
+    marginLeft: 10, // Add some space between icon and text
   },
   usernameSubtitle: {
     fontSize: 16,
@@ -190,9 +193,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   requestButton: {
-    backgroundColor: '#aa60d1', // Request button color
+    backgroundColor: '#aa60d1',
     borderRadius: 5,
     padding: 8,
+    marginLeft: 'auto', // Align button to the right
   },
   requestButtonText: {
     color: '#fff',
