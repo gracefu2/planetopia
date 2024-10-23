@@ -36,18 +36,26 @@ const habitats = {
   },
 };
 
-const PlanetHabitatsScreen = () => {
+const PlanetHabitatsScreen = ({ navigation }) => {
   const handleHabitatRestore = (planetName) => {
     Alert.alert(`You have restored a habitat in ${planetName}!`, `Informative blurb about the habitat in ${planetName}.`);
   };
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity 
+        style={styles.goBackButton} 
+        onPress={() => navigation.goBack()}
+      >
+        <Text style={styles.goBackText}>Go Back</Text>
+      </TouchableOpacity>
       <Text style={styles.title}>Planet Habitants</Text>
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.scrollView}>
         {Object.keys(habitats).map((planet) => (
           <View key={planet} style={styles.planetContainer}>
-            <Text style={styles.planetName}>{planet}</Text>
+            <View style={styles.circle}>
+              <Text style={styles.planetName}>{planet}</Text>
+            </View>
             <Text style={styles.habitatCount}>{habitats[planet].count} Habitats</Text>
             <Text style={styles.habitatName}>Habitat Name: {habitats[planet].name}</Text>
             <TouchableOpacity 
@@ -71,12 +79,26 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#e0f7fa', // Light blue background for the screen
   },
+  goBackButton: {
+    marginBottom: 20,
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: '#f44336', // Red for Go Back button
+    alignItems: 'center',
+  },
+  goBackText: {
+    color: '#ffffff', // White text for button
+    fontWeight: 'bold',
+  },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 20,
     color: '#00796b', // Dark teal for title
+  },
+  scrollView: {
+    paddingTop: 20, // More padding at the top of the scroll view
   },
   planetContainer: {
     marginBottom: 20,
@@ -91,6 +113,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 6,
     elevation: 3, // For Android shadow
+    alignItems: 'center', // Center content horizontally
+  },
+  circle: {
+    width: 80, // Adjust size for the circle
+    height: 80,
+    borderRadius: 40, // Make it a circle
+    backgroundColor: '#ffe0b2', // Light orange for planet circles
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10, // Space between circle and text
   },
   planetName: {
     fontSize: 22,
