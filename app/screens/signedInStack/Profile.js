@@ -21,7 +21,7 @@ const ProfileScreen = () => {
   return (
     <ScrollView style={styles.container}>
       <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-        <Ionicons name="settings-outline" size={24} color="#4a90e2" />
+        <Ionicons name="settings-outline" size={24} color="#4CAF50" />
       </TouchableOpacity>
       {/* Section 1: Streak, Following, Followers, Avatar */}
       <View style={styles.section}>
@@ -90,23 +90,23 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#e0f7fa', // Light blue background for vibrance
+    backgroundColor: '#E1F5FE', // Light blue background for vibrance
     paddingHorizontal: 16,
     paddingVertical: 50,
   },
   section: {
     marginBottom: 24,
-    backgroundColor: '#ffffff', // White background for sections
-    borderRadius: 10,
+    backgroundColor: '#FFFFFF', // White background for sections
+    borderRadius: 12,
     padding: 16,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 4,
     },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 1, // For Android shadow
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 4, // For Android shadow
   },
   profileInfo: {
     flexDirection: 'row',
@@ -116,25 +116,25 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   streak: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
-    color: '#00796b', // Dark teal for name
+    color: '#1E88E5', // Bright blue for name
   },
   uname: {
-    fontSize: 14,
+    fontSize: 16,
     marginTop: 4,
-    color: '#555', // Dark grey for username
+    color: '#1976D2', // Darker blue for username
   },
   follow: {
-    fontSize: 12,
+    fontSize: 14,
     marginTop: 4,
-    color: '#777', // Medium grey for joined date
+    color: '#4CAF50', // Green for joined date
   },
   sectionTitle: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
     marginBottom: 8,
-    color: '#d32f2f', // Red for section titles
+    color: '#D32F2F', // Bright red for section titles
   },
   statsContainer: {
     flexDirection: 'row',
@@ -145,27 +145,27 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   statLabel: {
-    fontSize: 14,
-    color: '#555',
+    fontSize: 16,
+    color: '#8E24AA', // Purple for stat labels
   },
   statValue: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
-    color: '#ff5722', // Deep orange for stat values
+    color: '#FF9800', // Bright orange for stat values
   },
   achievement: {
-    fontSize: 16,
+    fontSize: 18,
     marginBottom: 4,
-    color: '#1976d2', // Blue for achievements
+    color: '#4CAF50', // Green for achievements
   },
   reportText: {
-    fontSize: 16,
+    fontSize: 18,
     color: '#333', // Dark grey for report text
   },
   graphLabel: {
     textAlign: 'center',
     marginTop: 16,
-    fontSize: 16,
-    color: '#666',
+    fontSize: 18,
+    color: '#795548', // Brown for graph label
   },
 });
