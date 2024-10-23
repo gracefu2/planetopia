@@ -240,6 +240,7 @@ const styles = StyleSheet.create({
   points: {
     fontSize: 16,
     color: '#fff',
+    marginLeft: 10,
   },
   sectionTitle: {
     fontSize: 20,
