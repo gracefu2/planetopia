@@ -6,7 +6,7 @@ import { LineChart } from 'react-native-svg-charts';
 import { useUser } from '../../../context/UserContext';
 import { Ionicons } from '@expo/vector-icons';
 import Avatar from '../../components/Avatar';
-import LinearGradient from 'react-native-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient'; // Make sure to install this package
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -20,10 +20,10 @@ const ProfileScreen = () => {
   const userData = useUser();
 
   return (
-    <LinearGradient colors={['#FF6F61', '#b3d99e']} style={styles.container}>
+    <LinearGradient colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.container}>
       <ScrollView>
         <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-          <Ionicons name="settings-outline" size={24} color="#FFFFFF" /> {/* Change color for visibility */}
+          <Ionicons name="settings-outline" size={24} color="#FF6F61" />
         </TouchableOpacity>
         {/* Section 1: Streak, Following, Followers, Avatar */}
         <View style={styles.section}>
@@ -120,23 +120,23 @@ const styles = StyleSheet.create({
   streak: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#FFFFFF', // Adjusted for better visibility against gradient
+    color: '#FF6F61', // Primary color for name
   },
   uname: {
     fontSize: 16,
     marginTop: 4,
-    color: '#b3d99e', // Secondary Color
+    color: '#333', // Text color for username
   },
   follow: {
     fontSize: 14,
     marginTop: 4,
-    color: '#71cabb', // Accent Color
+    color: '#333', // Text color for joined date
   },
   sectionTitle: {
     fontSize: 26,
     fontWeight: 'bold',
     marginBottom: 8,
-    color: '#FF6F61', // Primary Color
+    color: '#FF6F61', // Primary color for section titles
   },
   statsContainer: {
     flexDirection: 'row',
@@ -148,26 +148,26 @@ const styles = StyleSheet.create({
   },
   statLabel: {
     fontSize: 16,
-    color: '#b3d99e', // Secondary Color
+    color: '#b3d99e', // Secondary color for stat labels
   },
   statValue: {
     fontSize: 26,
     fontWeight: 'bold',
-    color: '#FF6F61', // Primary Color
+    color: '#71cabb', // Accent color for stat values
   },
   achievement: {
     fontSize: 18,
     marginBottom: 4,
-    color: '#71cabb', // Accent Color
+    color: '#333', // Text color for achievements
   },
   reportText: {
     fontSize: 18,
-    color: '#333', // Dark grey for report text
+    color: '#333', // Text color for report text
   },
   graphLabel: {
     textAlign: 'center',
     marginTop: 16,
     fontSize: 18,
-    color: '#333', // Text Color
+    color: '#333', // Text color for graph label
   },
 });
