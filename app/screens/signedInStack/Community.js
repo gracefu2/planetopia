@@ -22,16 +22,27 @@ const getColorFromRank = (rank, totalUsers) => {
 
 const LeaderboardScreen = () => {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const usersCollection = collection(db, 'users');
-      const userSnapshot = await getDocs(usersCollection);
-      const userList = userSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setUsers(userList);
+      try {
+        const usersCollection = collection(db, 'users');
+        const userSnapshot = await getDocs(usersCollection);
+        const userList = userSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setUsers(userList);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchUsers();
   }, []);
+
+  if (loading) {
+    return <Text style={styles.loadingMessage}>Loading...</Text>;
+  }
 
   return (
     <View style={styles.container}>
@@ -40,8 +51,13 @@ const LeaderboardScreen = () => {
         keyExtractor={(item) => item.id}
         renderItem={({ item, index }) => (
           <View style={[styles.userCard, { backgroundColor: getColorFromRank(index + 1, users.length) }]}>
-            <Text style={styles.username}>{item.name} <Text style={styles.usernameSubtitle}>({item.username})</Text></Text>
-            <Text style={styles.points}>{item.points} points</Text>
+            <View style={styles.rankBadge}>
+              <Text style={styles.rankText}>{index + 1}</Text>
+            </View>
+            <View style={styles.userInfo}>
+              <Text style={styles.username}>{item.name} <Text style={styles.usernameSubtitle}>({item.username})</Text></Text>
+              <Text style={styles.points}>{item.points} points</Text>
+            </View>
           </View>
         )}
         ListEmptyComponent={<Text style={styles.emptyMessage}>No users found.</Text>}
@@ -159,12 +175,12 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     borderRadius: 10,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
-    elevation: 3,
+    shadowOffset: { width: 0, height: 4 }, // Increased shadow for depth
+    shadowOpacity: 0.5,
+    shadowRadius: 6,
+    elevation: 5, // Increased elevation for Android
     flexDirection: 'row',
-    alignItems: 'center', // Align items in the center
+    alignItems: 'center',
   },
   username: {
     fontSize: 18,
@@ -201,5 +217,41 @@ const styles = StyleSheet.create({
   requestButtonText: {
     color: '#fff',
     fontWeight: '600',
+  },
+  rankBadge: {
+    backgroundColor: '#ffcc00', // Gold color for badge
+    borderRadius: 50,
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10,
+  },
+  rankText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#000',
+  },
+  userInfo: {
+    flex: 1,
+  },
+  username: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  usernameSubtitle: {
+    fontSize: 16,
+    color: '#fff',
+    fontStyle: 'italic',
+  },
+  points: {
+    fontSize: 16,
+    color: '#fff',
+  },
+  emptyMessage: {
+    textAlign: 'center',
+    color: '#777',
+    marginTop: 20,
   },
 });
