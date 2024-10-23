@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, Image, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../firebase';
 
@@ -15,7 +15,7 @@ const getColorFromRank = (rank, totalUsers) => {
   return `rgb(${r}, ${g}, ${b})`;
 };
 
-const LeaderboardScreen = () => {
+const LeaderboardScreen = ({ navigation }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -30,6 +30,9 @@ const LeaderboardScreen = () => {
 
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.friendButton} onPress={() => navigation.navigate('FriendsScreen')}>
+        <Text style={styles.friendButtonText}>👥 Friends</Text>
+      </TouchableOpacity>
       <Text style={styles.title}>🏆 Leaderboard 🏆</Text>
       <FlatList
         data={users.sort((a, b) => b.points - a.points)} // Sort by points
@@ -55,6 +58,19 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: '#f9f9f9',
+    marginTop: 20, // Added margin to push down the leaderboard
+  },
+  friendButton: {
+    backgroundColor: '#0f5381',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  friendButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   title: {
     fontSize: 30,
