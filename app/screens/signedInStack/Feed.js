@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   articleTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#2cbbd9', // Use blue for article title
+    color: '#78b900', // Use blue for article title
   },
   articleDescription: {
     fontSize: 14,
