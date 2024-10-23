@@ -28,7 +28,8 @@ const FeedScreen = () => {
 
   useEffect(() => {
     const fetchNews = async () => {
-      getNewsData().then(response => {
+      try {
+        const response = await getNewsData();
         let newCategorizedArticles = {
           "All": response.data.articles.results, 
           "Climate Change": [],
@@ -43,9 +44,7 @@ const FeedScreen = () => {
             return splits[splits.length - 1];
           });
 
-          const catsFiltered = cats.filter((item, pos) => {
-            return cats.indexOf(item) === pos;
-          });
+          const catsFiltered = [...new Set(cats)]; // Filter out duplicates
 
           catsFiltered.forEach(cat => {
             if (newCategorizedArticles[cat]) {
@@ -55,11 +54,11 @@ const FeedScreen = () => {
         });
 
         setCategorizedArticles(newCategorizedArticles);
-        setLoading(false);
-      }).catch(err => {
+      } catch (err) {
         console.error(err);
+      } finally {
         setLoading(false);
-      });
+      }
     };
 
     fetchNews();
@@ -72,14 +71,14 @@ const FeedScreen = () => {
           <Text style={styles.title}>{message}</Text>
           <Text>{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: '2-digit', year: 'numeric' })}</Text>
         </View>
-        <ActivityIndicator />
+        <ActivityIndicator size="large" color={colors.blue} />
       </LinearGradient>
     );
   }
 
   return (
     <LinearGradient colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.container}>
-      <ScrollView>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
         <View style={styles.section}>
           <Text style={styles.title}>{message}</Text>
           <Text>{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: '2-digit', year: 'numeric' })}</Text>
@@ -102,9 +101,12 @@ const FeedScreen = () => {
           {categorizedArticles[selectedCategory]?.map(article => 
             <View style={{ flexDirection: 'column', backgroundColor: colors.white, borderRadius: sizing.sm }} key={article.url}>
               {article.image && 
-                <Image style={{ objectFit: 'cover', borderTopLeftRadius: sizing.sm, borderTopRightRadius: sizing.sm, height: 150, width: "100%" }} source={{ uri: article.image }} />
+                <Image 
+                  style={{ borderTopLeftRadius: sizing.sm, borderTopRightRadius: sizing.sm, height: 150, width: "100%", resizeMode: 'cover' }} 
+                  source={{ uri: article.image }} 
+                />
               }
-              <View style={{ width: '100%', flexShrink: 1, padding: sizing.md }}>
+              <View style={{ padding: sizing.md }}>
                 <Text style={styles.articleTitle}>{article.title}</Text>
                 <Text style={[styles.articleDescription, { color: colors.midGray }]}>
                   {article.source.title ? `${article.source.title} · ` : ''}
