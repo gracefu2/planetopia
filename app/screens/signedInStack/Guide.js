@@ -63,13 +63,6 @@ const GuideScreen = () => {
 
   return (
     <View style={styles.container}>
-      <TextInput 
-        style={styles.searchBar}
-        placeholder="Search guides..." 
-        value={searchTerm} 
-        onChangeText={handleSearch} 
-      />
-      <Button text="Create a new Guide" onPress={() => navigation.navigate("EditGuides")} />
       <Text style={styles.sectionTitle}>Pinned Guides</Text>
       <FlatList
         data={filteredGuides}
@@ -77,6 +70,16 @@ const GuideScreen = () => {
         keyExtractor={item => item.id}
         style={styles.flatList}
       />
+      <Button text="Create a new Guide" onPress={() => navigation.navigate("EditGuides")} />
+      
+      {/* Move the search bar below the pinned guides and button */}
+      <TextInput 
+        style={styles.searchBar}
+        placeholder="Search guides..." 
+        value={searchTerm} 
+        onChangeText={handleSearch} 
+      />
+      
       <Text style={styles.sectionTitle}>Just Posted</Text>
       <FlatList
         numColumns={2}
@@ -106,6 +109,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     backgroundColor: '#fff',
     fontSize: 16,
+    marginTop: 20, // Add margin top for spacing
   },
   sectionTitle: {
     fontSize: 20,
