@@ -122,7 +122,7 @@ export default FeedScreen;
 const styles = StyleSheet.create({
   container: {
     paddingVertical: sizing.xxxl,
-    backgroundColor: colors.blue,
+    backgroundColor: '#2cbbd9',
     flex: 1,
   },
   title: {
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   articleTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: colors.blue, // Use blue for article title
+    color: '#2cbbd9', // Use blue for article title
   },
   articleDescription: {
     fontSize: 14,
