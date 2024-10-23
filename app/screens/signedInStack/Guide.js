@@ -3,6 +3,7 @@ import { Text, TextInput, View, FlatList, StyleSheet, TouchableOpacity } from 'r
 import { getFirestore, collection, getDocs, query, where } from "firebase/firestore";
 import Button from '../../components/general/Button';
 import { useNavigation } from '@react-navigation/native';
+import { db } from '../../../firebase';
 
 const GuideScreen = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -11,25 +12,16 @@ const GuideScreen = () => {
   const navigation = useNavigation();
   const firestoreDb = getFirestore();
 
-  // Mock data for pinned guides
-  const mockGuides = [
-    { id: '1', title: 'Guide 1', content: [{ text: 'Content for Guide 1' }], emoji: '📚', pinned: true },
-    { id: '2', title: 'Guide 2', content: [{ text: 'Content for Guide 2' }], emoji: '📖', pinned: true },
-    { id: '3', title: 'Guide 3', content: [{ text: 'Content for Guide 3' }], emoji: '📓', pinned: true },
-  ];
-
   useEffect(() => {
     const fetchGuides = async () => {
       const guidesRef = collection(firestoreDb, "guides");
       const q = query(guidesRef, where("pinned", "==", true));
       const querySnapshot = await getDocs(q);
       const guides = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-      // Combine fetched guides with mock data
-      const allPinnedGuides = [...guides, ...mockGuides];
-      setPinnedGuides(allPinnedGuides);
-      setFilteredGuides(allPinnedGuides);
+      setPinnedGuides(guides);
+      setFilteredGuides(guides);
     };
+
     fetchGuides();
   }, [firestoreDb]);
 
@@ -61,6 +53,14 @@ const GuideScreen = () => {
     </TouchableOpacity>
   );
 
+  // Sample test guides data (without pins for guides 1, 2, and 3)
+  const testGuides = [
+    { id: '4', title: 'Guide 4', emoji: '📘', content: [{ text: 'Content for guide 4.' }], pinned: false },
+    { id: '5', title: 'Guide 5', emoji: '📗', content: [{ text: 'Content for guide 5.' }], pinned: false },
+    { id: '6', title: 'Guide 6', emoji: '📙', content: [{ text: 'Content for guide 6.' }], pinned: false },
+    // Add more test guides if needed
+  ];
+
   return (
     <View style={styles.container}>
       <TextInput 
@@ -80,7 +80,7 @@ const GuideScreen = () => {
       <Text style={styles.sectionTitle}>Just Posted</Text>
       <FlatList
         numColumns={2}
-        data={pinnedGuides}
+        data={[...pinnedGuides, ...testGuides]} // Combine pinned guides with test guides
         renderItem={renderGuideItem}
         keyExtractor={item => item.id}
         style={styles.flatList}
