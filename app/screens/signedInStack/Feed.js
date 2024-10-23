@@ -6,16 +6,6 @@ import getNewsData from '../../../utils/getNewsData';
 import getGreeting from '../../../utils/getGreeting';
 import { useUser } from '../../../context/UserContext';
 
-const colors = {
-  white: '#FFFFFF',
-  offWhite: '#F9F9F9',
-  black: '#000000',
-  midGray: '#A0A0A0',
-  blue: '#2cbbd9', // Using the blue from ProfileScreen
-  extraLightBlue: '#b3d99e', // Using the light green from ProfileScreen
-  primary: '#FF6F61', // Primary color used in ProfileScreen
-  secondary: '#71cabb', // Secondary color used in ProfileScreen
-};
 
 const FeedScreen = () => {
   const userData = useUser();
