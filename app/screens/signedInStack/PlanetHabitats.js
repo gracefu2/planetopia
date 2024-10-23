@@ -81,11 +81,11 @@ const styles = StyleSheet.create({
   },
   goBackButton: {
     marginBottom: 20,
-    padding: 20,
+    padding: 10,
     borderRadius: 5,
     backgroundColor: '#f44336', // Red for Go Back button
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 20,
   },
   goBackText: {
     color: '#ffffff', // White text for button
