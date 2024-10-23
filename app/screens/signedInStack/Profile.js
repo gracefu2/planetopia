@@ -56,7 +56,7 @@ const ProfileScreen = () => {
         {/* Section 2: Progress */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Progress</Text>
-          <Button text="Navigate to Planet Zones" onPress={() => navigation.navigate('habitat')} />
+          <Button text="Navigate to Planet Zones" onPress={() => navigation.navigate('PlanetHabitats')} />
         </View>
 
         {/* Section 3: Achievements and Badges */}
