@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../firebase';
-import Animated from 'react-native-reanimated';
-import LinearGradient from 'react-native-linear-gradient'; // Import for gradient background
+import Button from '../../components/general/Button';
+import Icon from 'react-native-vector-icons/Ionicons'; // Import icons
+
+const Tab = createMaterialTopTabNavigator();
 
 const getColorFromRank = (rank, totalUsers) => {
   const percentage = rank / totalUsers;
@@ -30,78 +33,144 @@ const LeaderboardScreen = () => {
     fetchUsers();
   }, []);
 
-  const renderItem = ({ item, index }) => (
-    <Animated.View
-      style={[
-        styles.userCard,
-        {
-          backgroundColor: getColorFromRank(index + 1, users.length),
-          transform: [{ translateY: index * 5 }], // Add slight animation based on index
-        },
-      ]}
-    >
-      <View style={styles.rankContainer}>
-        <Text style={styles.rankText}>{index + 1}</Text>
-      </View>
-      <Text style={styles.username}>{item.name} <Text style={styles.usernameSubtitle}>({item.username})</Text></Text>
-      <Text style={styles.points}>{item.points} points</Text>
-    </Animated.View>
-  );
-
   return (
     <View style={styles.container}>
-      <LinearGradient colors={['#e0f7fa', '#ffffff']} style={styles.gradient}>
-        <FlatList
-          data={users.sort((a, b) => b.points - a.points)}
-          keyExtractor={(item) => item.id}
-          renderItem={renderItem}
-          ListEmptyComponent={<Text style={styles.emptyMessage}>No users found.</Text>}
-        />
-      </LinearGradient>
+      <FlatList
+        data={users.sort((a, b) => b.points - a.points)}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item, index }) => (
+          <View style={[styles.userCard, { backgroundColor: getColorFromRank(index + 1, users.length) }]}>
+            <Text style={styles.username}>{item.name} <Text style={styles.usernameSubtitle}>({item.username})</Text></Text>
+            <Text style={styles.points}>{item.points} points</Text>
+          </View>
+        )}
+        ListEmptyComponent={<Text style={styles.emptyMessage}>No users found.</Text>}
+      />
     </View>
   );
 };
+
+const FriendsScreen = () => {
+  const [search, setSearch] = useState('');
+  const [friends, setFriends] = useState([]);
+  const [incomingFriendRequests, setIncomingFriendRequests] = useState([]);
+  const [outgoingFriendRequests, setOutgoingFriendRequests] = useState([]);
+
+  const handleSearch = () => {
+    console.log('Searching for:', search);
+  };
+
+  return (
+    <View style={styles.container}>
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Search for friends by username"
+        value={search}
+        onChangeText={setSearch}
+        autoCapitalize="none"
+      />
+      <Button text="Search" onPress={handleSearch} />
+
+      <Text style={styles.sectionTitle}>Friends:</Text>
+      {friends.length > 0 ? (
+        <FlatList
+          data={friends}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TouchableOpacity style={styles.userCard}>
+              <Icon name="person-circle" size={24} color="#0f5381" />
+              <Text style={styles.username}>{item.username}</Text>
+            </TouchableOpacity>
+          )}
+        />
+      ) : (
+        <Text style={styles.emptyMessage}>No friends found.</Text>
+      )}
+
+      <Text style={styles.sectionTitle}>Friend Requests:</Text>
+      {incomingFriendRequests.length > 0 ? (
+        <FlatList
+          data={incomingFriendRequests}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.userCard}>
+              <Icon name="person-add" size={24} color="#0f5381" />
+              <Text style={styles.username}>{item.username}</Text>
+              <TouchableOpacity style={styles.requestButton}>
+                <Text style={styles.requestButtonText}>Accept</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        />
+      ) : (
+        <Text style={styles.emptyMessage}>No incoming friend requests.</Text>
+      )}
+
+      {outgoingFriendRequests.length > 0 && (
+        <>
+          <Text style={styles.sectionTitle}>Outgoing Friend Requests:</Text>
+          <FlatList
+            data={outgoingFriendRequests}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <View style={styles.userCard}>
+                <Icon name="person-remove" size={24} color="#0f5381" />
+                <Text style={styles.username}>{item.username}</Text>
+                <TouchableOpacity style={styles.requestButton}>
+                  <Text style={styles.requestButtonText}>Cancel</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          />
+        </>
+      )}
+    </View>
+  );
+};
+
+const CommunityScreen = () => {
+  return (
+    <Tab.Navigator style={{ paddingTop: 50 }}>
+      <Tab.Screen name="Leaderboard" component={LeaderboardScreen} />
+      <Tab.Screen name="Friends" component={FriendsScreen} />
+    </Tab.Navigator>
+  );
+};
+
+export default CommunityScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    backgroundColor: '#f9f9f9',
   },
-  gradient: {
-    flex: 1,
-    borderRadius: 10,
-    padding: 10,
+  searchInput: {
+    borderColor: '#0f5381',
+    borderWidth: 2,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+    marginBottom: 12,
+    backgroundColor: '#fff',
   },
   userCard: {
-    borderRadius: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
-    elevation: 4,
-    padding: 20,
-    marginVertical: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  rankContainer: {
-    backgroundColor: '#ffcc00',
+    padding: 16,
+    marginVertical: 6,
     borderRadius: 10,
-    padding: 10,
-    marginRight: 12,
-    width: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  rankText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#fff',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    elevation: 3,
+    flexDirection: 'row',
+    alignItems: 'center', // Align items in the center
   },
   username: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#fff',
+    marginLeft: 10, // Add some space between icon and text
   },
   usernameSubtitle: {
     fontSize: 16,
@@ -112,11 +181,25 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#fff',
   },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginVertical: 8,
+    color: '#0f5381',
+  },
   emptyMessage: {
     textAlign: 'center',
     color: '#777',
     marginTop: 20,
   },
+  requestButton: {
+    backgroundColor: '#aa60d1',
+    borderRadius: 5,
+    padding: 8,
+    marginLeft: 'auto', // Align button to the right
+  },
+  requestButtonText: {
+    color: '#fff',
+    fontWeight: '600',
+  },
 });
-
-export default LeaderboardScreen;
