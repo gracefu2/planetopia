@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     flex: 1, 
     padding: 20, 
     backgroundColor: '#ffefd5', // Soft background color
-    marginTop: 20, // Add margin to move content down
+    marginTop: 25, // Add margin to move content down
   },
   searchBar: {
     borderColor: '#ccc',
