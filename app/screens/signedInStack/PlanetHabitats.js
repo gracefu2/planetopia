@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
   goBackText: {
     color: '#ffffff', // White text for button
     fontWeight: 'bold',
+    padding: 10,
   },
   title: {
     fontSize: 28,
