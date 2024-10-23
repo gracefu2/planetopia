@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: '#f44336', // Red for Go Back button
     alignItems: 'center',
-
+    marginTop: 10,
   },
   goBackText: {
     color: '#ffffff', // White text for button
