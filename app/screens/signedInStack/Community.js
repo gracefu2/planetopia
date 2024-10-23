@@ -72,9 +72,47 @@ const FriendsScreen = () => {
   const [incomingFriendRequests, setIncomingFriendRequests] = useState([]);
   const [outgoingFriendRequests, setOutgoingFriendRequests] = useState([]);
 
-  const handleSearch = () => {
-    console.log('Searching for:', search);
-  };
+const [originalFriendsList, setOriginalFriendsList] = useState([]); // Store original list
+
+useEffect(() => {
+  // Fetch and set friends here
+  // setOriginalFriendsList(fetchedFriends); // After fetching
+}, []);
+
+const handleSearch = () => {
+  const filteredFriends = originalFriendsList.filter(friend =>
+    friend.username.toLowerCase().includes(search.toLowerCase())
+  );
+  setFriends(filteredFriends);
+};
+
+
+const AnimatedCard = ({ item }) => {
+  const animatedValue = new Animated.Value(0);
+
+  useEffect(() => {
+    Animated.timing(animatedValue, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  }, []);
+
+  const scale = animatedValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0.8, 1],
+  });
+
+  return (
+    <Animated.View style={{ transform: [{ scale }] }}>
+      <TouchableOpacity style={styles.userCard}>
+        <Icon name="person-circle" size={24} color="#0f5381" />
+        <Text style={styles.username}>{item.username}</Text>
+      </TouchableOpacity>
+    </Animated.View>
+  );
+};
+
 
   return (
     <View style={styles.container}>
@@ -92,12 +130,7 @@ const FriendsScreen = () => {
         <FlatList
           data={friends}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <TouchableOpacity style={styles.userCard}>
-              <Icon name="person-circle" size={24} color="#0f5381" />
-              <Text style={styles.username}>{item.username}</Text>
-            </TouchableOpacity>
-          )}
+          renderItem={({ item }) => <AnimatedCard item={item} />}
         />
       ) : (
         <Text style={styles.emptyMessage}>No friends found.</Text>
@@ -109,7 +142,7 @@ const FriendsScreen = () => {
           data={incomingFriendRequests}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <View style={styles.userCard}>
+            <View style={styles.requestCard}>
               <Icon name="person-add" size={24} color="#0f5381" />
               <Text style={styles.username}>{item.username}</Text>
               <TouchableOpacity style={styles.requestButton}>
@@ -129,7 +162,7 @@ const FriendsScreen = () => {
             data={outgoingFriendRequests}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <View style={styles.userCard}>
+              <View style={styles.requestCard}>
                 <Icon name="person-remove" size={24} color="#0f5381" />
                 <Text style={styles.username}>{item.username}</Text>
                 <TouchableOpacity style={styles.requestButton}>
@@ -181,6 +214,19 @@ const styles = StyleSheet.create({
     elevation: 5, // Increased elevation for Android
     flexDirection: 'row',
     alignItems: 'center',
+  },
+    requestCard: {
+    padding: 16,
+    marginVertical: 6,
+    borderRadius: 10,
+    backgroundColor: '#aa60d1',
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 6,
+    elevation: 5,
   },
   username: {
     fontSize: 18,
