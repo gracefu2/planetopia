@@ -3,13 +3,20 @@ import { Text, TextInput, View, FlatList, StyleSheet, TouchableOpacity } from 'r
 import { getFirestore, collection, getDocs, query, where } from "firebase/firestore";
 import Button from '../../components/general/Button';
 import { useNavigation } from '@react-navigation/native';
-import { db } from '../../../firebase';
 
 const GuideScreen = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [pinnedGuides, setPinnedGuides] = useState([]);
   const [filteredGuides, setFilteredGuides] = useState([]);
+  const navigation = useNavigation();
   const firestoreDb = getFirestore();
+
+  // Mock data for pinned guides
+  const mockGuides = [
+    { id: '1', title: 'Guide 1', content: [{ text: 'Content for Guide 1' }], emoji: '📚', pinned: true },
+    { id: '2', title: 'Guide 2', content: [{ text: 'Content for Guide 2' }], emoji: '📖', pinned: true },
+    { id: '3', title: 'Guide 3', content: [{ text: 'Content for Guide 3' }], emoji: '📓', pinned: true },
+  ];
 
   useEffect(() => {
     const fetchGuides = async () => {
@@ -17,8 +24,11 @@ const GuideScreen = () => {
       const q = query(guidesRef, where("pinned", "==", true));
       const querySnapshot = await getDocs(q);
       const guides = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setPinnedGuides(guides);
-      setFilteredGuides(guides);
+
+      // Combine fetched guides with mock data
+      const allPinnedGuides = [...guides, ...mockGuides];
+      setPinnedGuides(allPinnedGuides);
+      setFilteredGuides(allPinnedGuides);
     };
     fetchGuides();
   }, [firestoreDb]);
@@ -32,27 +42,13 @@ const GuideScreen = () => {
     );
   };
 
-  const navigation = useNavigation();
-  const [guides, setGuides] = useState([]);
-
-  useEffect(() => {
-    const fetchGuides = async () => {
-      const guidesCollection = collection(firestoreDb, 'guides');
-      const guidesSnapshot = await getDocs(guidesCollection);
-      const guidesList = guidesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setGuides(guidesList);
-    };
-
-    fetchGuides();
-  }, []);
-
   const renderPinnedGuide = ({ item }) => (
     <TouchableOpacity 
       style={styles.pinnedGuideItem}
       onPress={() => navigation.navigate('ViewGuide', { guide: item })}
     >
-      <Text style={styles.title}>{item.emoji} {item.title}</Text>
-      <Text style={styles.text}>{item.content[0]?.text}</Text>
+      <Text style={styles.guideTitle}>{item.emoji} {item.title}</Text>
+      <Text style={styles.guideText}>{item.content[0].text}</Text>
     </TouchableOpacity>
   );
 
@@ -61,7 +57,7 @@ const GuideScreen = () => {
       style={styles.guideItem}
       onPress={() => navigation.navigate('ViewGuide', { guide: item })}
     >
-      <Text style={styles.title}>{item.emoji} {item.title}</Text>
+      <Text style={styles.guideTitle}>{item.emoji} {item.title}</Text>
     </TouchableOpacity>
   );
 
@@ -74,18 +70,20 @@ const GuideScreen = () => {
         onChangeText={handleSearch} 
       />
       <Button text="Create a new Guide" onPress={() => navigation.navigate("EditGuides")} />
-      <Text style={styles.sectionTitle}>Pinned</Text>
+      <Text style={styles.sectionTitle}>Pinned Guides</Text>
       <FlatList
         data={filteredGuides}
         renderItem={renderPinnedGuide}
         keyExtractor={item => item.id}
+        style={styles.flatList}
       />
       <Text style={styles.sectionTitle}>Just Posted</Text>
       <FlatList
         numColumns={2}
-        data={guides}
+        data={pinnedGuides}
         renderItem={renderGuideItem}
         keyExtractor={item => item.id}
+        style={styles.flatList}
       />
     </View>
   );
@@ -94,66 +92,67 @@ const GuideScreen = () => {
 export default GuideScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#f4f4f4'
+  container: { 
+    flex: 1, 
+    padding: 20, 
+    backgroundColor: '#ffefd5' // Soft background color
   },
   searchBar: {
     borderColor: '#ccc',
     borderWidth: 1,
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
     paddingVertical: 10,
-    borderRadius: 20,
+    borderRadius: 8,
     marginBottom: 20,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    fontSize: 16,
   },
   sectionTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginVertical: 10,
-    color: '#333'
+    marginVertical: 12,
+    color: '#2cbbd9', // A contrasting color for headings
+  },
+  flatList: {
+    marginBottom: 20,
   },
   pinnedGuideItem: {
     padding: 16,
     marginBottom: 12,
     marginRight: 12,
-    backgroundColor: '#fff',
-    borderRadius: 8,
+    backgroundColor: '#ffffff', // White background for the guide item
+    borderRadius: 10,
     shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 3,
     },
-    width: "100%",
-    elevation: 2
   },
   guideItem: {
     padding: 16,
     marginBottom: 12,
     marginRight: 12,
-    backgroundColor: '#fff',
-    borderRadius: 8,
+    backgroundColor: '#ffffff', // White background for the guide item
+    borderRadius: 10,
     shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 3,
     },
-    width: "48%",
-    elevation: 2
+    width: "48%", // Ensures two items fit in a row
   },
-  title: {
+  guideTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#333'
+    color: '#333',
   },
-  text: {
+  guideText: {
     fontSize: 14,
-    marginTop: 5,
-    color: '#666'
-  }
+    color: '#666',
+    marginTop: 4,
+  },
 });
