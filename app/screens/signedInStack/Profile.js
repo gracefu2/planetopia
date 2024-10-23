@@ -6,6 +6,7 @@ import { LineChart } from 'react-native-svg-charts';
 import { useUser } from '../../../context/UserContext';
 import { Ionicons } from '@expo/vector-icons';
 import Avatar from '../../components/Avatar';
+import { LinearGradient } from 'expo-linear-gradient'; // Ensure you have this package installed
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -19,71 +20,74 @@ const ProfileScreen = () => {
   const userData = useUser();
 
   return (
-    <ScrollView style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-        <Ionicons name="settings-outline" size={24} color="#4CAF50" />
-      </TouchableOpacity>
-      {/* Section 1: Streak, Following, Followers, Avatar */}
-      <View style={styles.section}>
-        <View style={styles.profileInfo}>
-          <Avatar type={userData.profilePic} />
-          <View style={styles.infoText}>
-            <Text style={styles.streak}>{userData.name}</Text>
-            <Text style={styles.uname}>{userData.username}</Text>
-            <Text style={styles.follow}>
-              Joined {new Date(userData.dateJoined).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
-            </Text>
-          </View>
-        </View>
-        <View style={styles.statsContainer}>
-          <View style={styles.statItem}>
-            <Text style={styles.statLabel}>Streak</Text>
-            <Text style={styles.statValue}>15</Text>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.statLabel}>Friends</Text>
-            <Text style={styles.statValue}>105</Text>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.statLabel}>Points</Text>
-            <Text style={styles.statValue}>155</Text>
-          </View>
-        </View>
-      </View>
-
-      {/* Section 2: Progress */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Progress</Text>
-        <Button text="Navigate to Planet Zones" onPress={() => navigation.navigate('habitat')} />
-      </View>
-
-      {/* Section 3: Achievements and Badges */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Achievements and Badges</Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.badgesContainer}>
-          {achievements.map((achievement, index) => (
-            <View key={index} style={styles.badge}>
-              <Text style={styles.badgeText}>{achievement}</Text>
+    <LinearGradient colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.container}>
+      <ScrollView>
+        <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+          <Ionicons name="settings-outline" size={24} color="#FF6F61" />
+        </TouchableOpacity>
+        {/* Section 1: Streak, Following, Followers, Avatar */}
+        <View style={styles.section}>
+          <View style={styles.profileInfo}>
+            <Avatar type={userData.profilePic} />
+            <View style={styles.infoText}>
+              <Text style={styles.streak}>{userData.name}</Text>
+              <Text style={styles.uname}>{userData.username}</Text>
+              <Text style={styles.follow}>
+                Joined {new Date(userData.dateJoined).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+              </Text>
             </View>
-          ))}
-        </ScrollView>
-      </View>
+          </View>
+          <View style={styles.statsContainer}>
+            <View style={styles.statItem}>
+              <Text style={styles.statLabel}>Streak</Text>
+              <Text style={styles.statValue}>15</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.statLabel}>Friends</Text>
+              <Text style={styles.statValue}>105</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Text style={styles.statLabel}>Points</Text>
+              <Text style={styles.statValue}>155</Text>
+            </View>
+          </View>
+        </View>
 
-      {/* Section 5: Total and Monthly Reports */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Total and Monthly Reports</Text>
-        <Text style={styles.reportText}>Summarize your activities, achievements, and overall impact.</Text>
-        {/* <LineChart
-          style={{ height: 200 }}
-          data={data}
-          contentInset={{ top: 20, bottom: 20 }}
-          svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
-        /> */}
-        <Text style={styles.graphLabel}>Your Progress Over Time</Text>
-      </View>
+        {/* Section 2: Progress */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Progress</Text>
+          <Button text="Navigate to Planet Zones" onPress={() => navigation.navigate('habitat')} />
+        </View>
 
-      <View style={{ height: 50 }} />
-    </ScrollView>
+        {/* Section 3: Achievements and Badges */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Achievements and Badges</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.badgesContainer}>
+            {achievements.map((achievement, index) => (
+              <View key={index} style={styles.badge}>
+                <Text style={styles.badgeText}>{achievement}</Text>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+
+        {/* Section 5: Total and Monthly Reports */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Total and Monthly Reports</Text>
+          <Text style={styles.reportText}>Summarize your activities, achievements, and overall impact.</Text>
+          {/* Uncomment the LineChart when needed */}
+          {/* <LineChart
+            style={{ height: 200 }}
+            data={data}
+            contentInset={{ top: 20, bottom: 20 }}
+            svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
+          /> */}
+          <Text style={styles.graphLabel}>Your Progress Over Time</Text>
+        </View>
+
+        <View style={{ height: 50 }} />
+      </ScrollView>
+    </LinearGradient>
   );
 };
 
@@ -92,7 +96,6 @@ export default ProfileScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E1F5FE', // Light blue background for vibrance
     paddingHorizontal: 16,
     paddingVertical: 50,
   },
@@ -100,7 +103,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     backgroundColor: '#FFFFFF', // White background for sections
     borderRadius: 12,
-    padding: 20, // Increased padding for a slightly longer container
+    padding: 20,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
