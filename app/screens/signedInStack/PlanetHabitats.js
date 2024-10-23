@@ -81,15 +81,15 @@ const styles = StyleSheet.create({
   },
   goBackButton: {
     marginBottom: 20,
-    padding: 10,
+    padding: 20,
     borderRadius: 5,
     backgroundColor: '#f44336', // Red for Go Back button
     alignItems: 'center',
+
   },
   goBackText: {
     color: '#ffffff', // White text for button
     fontWeight: 'bold',
-    padding: 10,
   },
   title: {
     fontSize: 28,
