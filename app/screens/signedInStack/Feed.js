@@ -122,7 +122,7 @@ export default FeedScreen;
 const styles = StyleSheet.create({
   container: {
     paddingVertical: sizing.xxxl,
-    backgroundColor: colors.offWhite,
+    backgroundColor: colors.blue,
     flex: 1,
   },
   title: {
