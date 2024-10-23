@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     backgroundColor: '#FFFFFF', // White background for sections
     borderRadius: 12,
-    padding: 16,
+    padding: 20, // Increased padding for a slightly longer container
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
