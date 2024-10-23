@@ -6,7 +6,6 @@ import getNewsData from '../../../utils/getNewsData';
 import getGreeting from '../../../utils/getGreeting';
 import { useUser } from '../../../context/UserContext';
 
-
 const FeedScreen = () => {
   const userData = useUser();
   const message = getGreeting(userData?.name);
@@ -98,12 +97,12 @@ const FeedScreen = () => {
       <View style={[styles.section, { gap: sizing.lg }]}>
         {
           categorizedArticles[selectedCategory]?.map(article => (
-            <View style={{ flexDirection: 'column', backgroundColor: colors.white, borderRadius: sizing.sm }} key={article.url}>
+            <View style={styles.articleContainer} key={article.url}>
               {
                 article.image && 
-                <Image style={{ objectFit: 'cover', borderTopLeftRadius: sizing.sm, borderTopRightRadius: sizing.sm, height: 150, width: "100%" }} source={{ uri: article.image }} />
+                <Image style={styles.articleImage} source={{ uri: article.image }} />
               }
-              <View style={{ width: '100%', flexShrink: 1, padding: sizing.md }}>
+              <View style={styles.articleContent}>
                 <Text style={styles.articleTitle}>{article.title}</Text>
                 <Text style={[styles.articleDescription, { color: colors.midGray }]}>
                   {article["source"]["title"] && article["source"]["title"] + " · "}{new Date(article.dateTime).toLocaleString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric', hour12: true, hour: '2-digit', minute: '2-digit' })}
@@ -152,6 +151,34 @@ const styles = StyleSheet.create({
   categoryText: {
     color: colors.black,
     fontWeight: '500',
+  },
+  articleContainer: {
+    flexDirection: 'column',
+    backgroundColor: colors.white,
+    borderRadius: sizing.sm,
+    borderWidth: 1,
+    borderColor: colors.midGray,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 3, // For Android
+    marginBottom: sizing.sm, // Space between articles
+  },
+  articleImage: {
+    objectFit: 'cover',
+    borderTopLeftRadius: sizing.sm,
+    borderTopRightRadius: sizing.sm,
+    height: 150,
+    width: "100%",
+  },
+  articleContent: {
+    width: '100%',
+    flexShrink: 1,
+    padding: sizing.md,
   },
   articleTitle: {
     fontSize: 18,
