@@ -1,65 +1,51 @@
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import React from 'react';
+import { Image } from 'react-native';
+import Back from '../../components/general/Back';
 
 const habitats = {
-  Mercury: {
-    count: 2,
-    name: 'Ron',
-  },
-  Venus: {
-    count: 3,
-    name: 'Vre',
-  },
-  Earth: {
-    count: 4,
-    name: 'Teauna',
-  },
   Mars: {
-    count: 5,
+    count: 2,
     name: 'Martrface',
-  },
-  Jupiter: {
-    count: 6,
-    name: 'Jpiter',
-  },
-  Saturn: {
-    count: 7,
-    name: 'Swith Solar Winds',
+    imagePath: require("../../../assets/planets/red.jpeg"),
+    isRestoring: true
   },
   Uranus: {
     count: 8,
     name: 'Uranus',
+    imagePath: require("../../../assets/planets/bluegreen.jpeg"),
+    isRestoring: false
   },
   Neptune: {
     count: 9,
     name: 'Neptune',
+    imagePath: require("../../../assets/planets/blue.jpeg"),
+    isRestoring: false
   },
 };
 
 const PlanetHabitatsScreen = ({ navigation }) => {
   const handleHabitatRestore = (planetName) => {
-    Alert.alert(`You have restored a habitat in ${planetName}!`, `Informative blurb about the habitat in ${planetName}.`);
+    navigation.navigate('Habitat')
+    // Alert.alert(`You have restored a habitat in ${planetName}!`, `Informative blurb about the habitat in ${planetName}.`);
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity 
-        style={styles.goBackButton} 
-        onPress={() => navigation.goBack()}
-      >
-        <Text style={styles.goBackText}>Go Back</Text>
-      </TouchableOpacity>
+      <Back />
       <Text style={styles.title}>Planet Habitants</Text>
       <ScrollView contentContainerStyle={styles.scrollView}>
         {Object.keys(habitats).map((planet) => (
           <View key={planet} style={styles.planetContainer}>
-            <View style={styles.circle}>
-              <Text style={styles.planetName}>{planet}</Text>
-            </View>
+            <Image
+              source={habitats[planet].imagePath}
+              style={styles.circle}
+            />
+            <Text style={styles.planetName}>{habitats[planet].name}</Text>
             <Text style={styles.habitatCount}>{habitats[planet].count} Habitats</Text>
-            <Text style={styles.habitatName}>Habitat Name: {habitats[planet].name}</Text>
             <TouchableOpacity 
-              style={styles.restoreButton} 
+              disabled={!habitats[planet].isRestoring}
+              style={[habitats[planet].isRestoring ? styles.restoreButton : styles.notRestoreButton]} 
               onPress={() => handleHabitatRestore(planet)}
             >
               <Text style={styles.buttonText}>Restore Habitat</Text>
@@ -77,6 +63,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    paddingTop: 50,
     backgroundColor: '#e0f7fa', // Light blue background for the screen
   },
   goBackButton: {
@@ -120,7 +107,6 @@ const styles = StyleSheet.create({
     width: 80, // Adjust size for the circle
     height: 80,
     borderRadius: 40, // Make it a circle
-    backgroundColor: '#ffe0b2', // Light orange for planet circles
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10, // Space between circle and text
@@ -143,6 +129,13 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     backgroundColor: '#388e3c', // Green for restore button
+    alignItems: 'center',
+  },
+  notRestoreButton: {
+    marginTop: 10,
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: '#999', // Green for restore button
     alignItems: 'center',
   },
   buttonText: {
