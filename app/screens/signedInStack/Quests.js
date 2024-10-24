@@ -45,9 +45,9 @@ const QuestsScreen = () => {
           data={data}
           renderItem={({ item }) => (
             <LinearGradient key={item.id} colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.goalItem}>
-              <View style={styles.goalTextContainer}>
-                <Text style={styles.goalTitle}>{item.title}</Text>
-                <Text style={styles.goalProgressText}>{item.progress} / {item.total}</Text>
+              <View>
+                <Text style={{ fontFamily: 'Poppins_400Regular' }}>{item.title}</Text>
+                <Text style={{ fontFamily: 'Poppins_400Regular' }}>{item.progress} / {item.total}</Text>
               </View>
               <ProgressBar progress={item.total > 0 ? item.progress / item.total : 0} color="#FF6F61" style={styles.customProgressBar} />
             </LinearGradient>
@@ -91,13 +91,13 @@ const QuestsScreen = () => {
           />
         </View>
       </LinearGradient>
-
-      {/* Divider */}
+      
       <View style={styles.divider} />
 
       {/* Goals Sections */}
       {renderGoals(weeklyProgress, 'Weekly Goals')}
       {renderGoals(monthlyProgress, 'Monthly Goals')}
+      <View style={styles.divider} />
     </ScrollView>
   );
 };
@@ -109,9 +109,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
+  divider: {
+    height: 20
+  },
   headerContainer: {
     padding: 20,
-    paddingTop: 40,
+    paddingTop: 70,
     marginBottom: 10,
     borderBottomWidth: 2,
     borderBottomColor: colors.secondary,
@@ -167,6 +170,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 6,
     elevation: 3,
+    marginHorizontal: 20
   },
   goalItem: {
     marginVertical: 8,

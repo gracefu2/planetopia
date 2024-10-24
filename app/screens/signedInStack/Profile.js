@@ -22,8 +22,8 @@ const ProfileScreen = () => {
   return (
     <LinearGradient colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.container}>
       <ScrollView>
-        <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-          <Ionicons name="settings-outline" size={24} color="#FF6F61" />
+        <TouchableOpacity style={{marginBottom: 15}} onPress={() => navigation.navigate('Settings')}>
+          <Ionicons name="settings-outline" size={32} color="#fff" />
         </TouchableOpacity>
         {/* Section 1: Streak, Following, Followers, Avatar */}
         <View style={styles.section}>
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingVertical: 50,
+    paddingTop: 50
   },
   section: {
     marginBottom: 24,
@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
   statsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: 20
   },
   statItem: {
     alignItems: 'center',
