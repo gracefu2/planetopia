@@ -59,14 +59,20 @@ const HabitatScreen = () => {
 
 
       {/* Left arrow */}
-      <TouchableOpacity style={[styles.arrowContainer, styles.leftArrow]} onPress={scrollLeft}>
-        <Text style={styles.arrowText}>{'<'}</Text>
-      </TouchableOpacity>
+      {
+        scrollPos!==0 &&
+        <TouchableOpacity style={[styles.arrowContainer, styles.leftArrow]} onPress={scrollLeft}>
+          <Text style={styles.arrowText}>{'<'}</Text>
+        </TouchableOpacity>
+      }
 
       {/* Right arrow */}
-      <TouchableOpacity style={[styles.arrowContainer, styles.rightArrow]} onPress={scrollRight}>
-        <Text style={styles.arrowText}>{'>'}</Text>
-      </TouchableOpacity>
+      {
+        scrollPos!==imageWidth - SCREEN_WIDTH &&
+        <TouchableOpacity style={[styles.arrowContainer, styles.rightArrow]} onPress={scrollRight}>
+          <Text style={styles.arrowText}>{'>'}</Text>
+        </TouchableOpacity>
+      }
     </View>
   );
 };

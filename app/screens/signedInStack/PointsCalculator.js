@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import Back from "../../components/general/Back"
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../../../firebase';
+import { useUser } from '../../../context/UserContext';
 
 const PointsCalculatorScreen = () => {
-  const [dailyPoints, setDailyPoints] = useState(0);
+
+  const userData = useUser()
+  const [dailyPoints, setDailyPoints] = useState(userData.dailyPoints);
 
   const categories = [
     {
@@ -55,10 +60,15 @@ const PointsCalculatorScreen = () => {
       ],
     },
   ];
-  
 
-  const handleAddPoints = (points) => {
+  const handleAddPoints = async (points) => {
     setDailyPoints(dailyPoints + points);
+
+    await setDoc(doc(db, 'users', userData.uid), {
+      dailyPoints: userData.dailyPoints+points,
+      points: userData.points+points,
+    }, { merge: 'true' })
+
   };
 
   const renderCategory = ({ item }) => (

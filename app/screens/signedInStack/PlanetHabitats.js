@@ -6,7 +6,7 @@ import Back from '../../components/general/Back';
 const habitats = {
   Mars: {
     count: 2,
-    name: 'Martrface',
+    name: 'Mars',
     imagePath: require("../../../assets/planets/red.jpeg"),
     isRestoring: true
   },
@@ -33,7 +33,7 @@ const PlanetHabitatsScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Back />
-      <Text style={styles.title}>Planet Habitants</Text>
+      <Text style={styles.title}>Planet Habitats</Text>
       <ScrollView contentContainerStyle={styles.scrollView}>
         {Object.keys(habitats).map((planet) => (
           <View key={planet} style={styles.planetContainer}>

@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, FlatList, ScrollView } from 'react-native';
 import Button from '../../components/general/Button';
 import { ProgressBar } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useUser } from '../../../context/UserContext';
 
 // Define colors
 const colors = {
@@ -28,14 +29,9 @@ const QuestsScreen = () => {
     { id: '2', title: 'Walk 20 miles total', progress: 10, total: 20 },
   ]);
 
-  const dailyPointsGoal = 50;
-  const [currentDailyPoints, setCurrentDailyPoints] = useState(0);
+  const dailyPointsGoal = 25;
 
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: '2-digit', year: 'numeric' });
-
-  const handleAddPoints = (points) => {
-    setCurrentDailyPoints(prevPoints => Math.min(prevPoints + points, dailyPointsGoal));
-  };
 
   const renderGoals = (data, title) => (
     <View style={styles.goalsContainer}>
@@ -68,6 +64,8 @@ const QuestsScreen = () => {
     </View>
   );
 
+  const userData = useUser()
+
   return (
     <ScrollView style={styles.container}>
       {/* Gradient Header Section */}
@@ -75,18 +73,17 @@ const QuestsScreen = () => {
         <Text style={styles.dateBox}>{today}</Text>
         <Text style={styles.headerTitle}>My Quests</Text>
 
+
+
         {/* Track Points Section */}
+        <ProgressBar progress={userData.dailyPoints / dailyPointsGoal} color="#FF6F61" style={styles.customFatProgressBar} />
         <View style={styles.trackPointsContainer}>
           <Text style={styles.trackPointsText}>Track Your Daily Points</Text>
-          <Text style={styles.goalText}>Goal: {dailyPointsGoal} Points</Text>
-          <ProgressBar 
-            progress={currentDailyPoints / dailyPointsGoal} 
-            color="#FF6F61" 
-            style={styles.customFatProgressBar} 
-          />
+          <Text style={styles.goalText}>Goal: {userData.dailyPoints} / {dailyPointsGoal} Points</Text>
+
           <Button
             text="+ Track points"
-            onPress={() => navigation.navigate('PointsCalculator', { onAddPoints: handleAddPoints })}
+            onPress={() => navigation.navigate('PointsCalculator')}
             style={styles.trackPointsButton}
           />
         </View>

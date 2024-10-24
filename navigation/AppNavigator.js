@@ -23,6 +23,7 @@ import SettingsScreen from '../app/screens/signedInStack/settings/Settings';
 import EditGuideScreen from '../app/screens/signedInStack/EditGuide';
 import ViewGuideScreen from '../app/screens/signedInStack/ViewGuide';
 import { useUser } from '../context/UserContext';
+import ViewFriendScreen from '../app/screens/signedInStack/ViewFriend';
 
 const Stack = createNativeStackNavigator()
 const BottomTab = createBottomTabNavigator()
@@ -105,6 +106,7 @@ const AppNavigator = () => {
 
         <Stack.Screen name="BottomTab" component={BottomTabNavigator} />
         <Stack.Screen name="ViewGuide" component={ViewGuideScreen} />
+        <Stack.Screen name="ViewFriend" component={ViewFriendScreen} />
         <Stack.Screen name="EditGuides" component={EditGuideScreen} />
         <Stack.Screen name="Habitat" component={HabitatScreen} />
         <Stack.Screen name="PlanetHabitats" component={PlanetHabitatsScreen} />

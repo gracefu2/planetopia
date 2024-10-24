@@ -14,12 +14,13 @@ const GuideScreen = () => {
 
   useEffect(() => {
     const fetchGuides = async () => {
-      const guidesRef = collection(firestoreDb, "guides");
-      const q = query(guidesRef, where("pinned", "==", true));
+      const guidesRef = collection(db, "guides");
+      const q = query(guidesRef);
       const querySnapshot = await getDocs(q);
       const guides = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setPinnedGuides(guides);
-      setFilteredGuides(guides);
+
+      setFilteredGuides(guides.filter((x) => x.pinned));
     };
 
     fetchGuides();
@@ -53,14 +54,6 @@ const GuideScreen = () => {
     </TouchableOpacity>
   );
 
-  // Sample test guides data (without pins for guides 1, 2, and 3)
-  const testGuides = [
-    { id: '4', title: 'Guide 4', emoji: '📘', content: [{ text: 'Content for guide 4.' }], pinned: false },
-    { id: '5', title: 'Guide 5', emoji: '📗', content: [{ text: 'Content for guide 5.' }], pinned: false },
-    { id: '6', title: 'Guide 6', emoji: '📙', content: [{ text: 'Content for guide 6.' }], pinned: false },
-    // Add more test guides if needed
-  ];
-
   return (
     <View style={styles.container}>
       <TextInput 
@@ -80,7 +73,7 @@ const GuideScreen = () => {
       <Text style={styles.sectionTitle}>Just Posted</Text>
       <FlatList
         numColumns={2}
-        data={[...pinnedGuides, ...testGuides]} // Combine pinned guides with test guides
+        data={[...pinnedGuides]} // Combine pinned guides with test guides
         renderItem={renderGuideItem}
         keyExtractor={item => item.id}
         style={styles.flatList}
@@ -94,7 +87,7 @@ export default GuideScreen;
 const styles = StyleSheet.create({
   container: { 
     flex: 1, 
-    padding: 20, 
+    paddingHorizontal: 20, 
     backgroundColor: '#ffefd5', // Soft background color
     paddingTop: 70, // Add margin to move content down
   },
@@ -115,7 +108,7 @@ const styles = StyleSheet.create({
     color: '#2cbbd9', // A contrasting color for headings
   },
   flatList: {
-    marginBottom: 20,
+    // marginBottom: 20,
   },
   pinnedGuideItem: {
     padding: 16,

@@ -1,31 +1,46 @@
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
-import { useNavigation } from '@react-navigation/native';
-import Button from '../../components/general/Button';
-import { LineChart } from 'react-native-svg-charts';
-import { useUser } from '../../../context/UserContext';
-import { Ionicons } from '@expo/vector-icons';
-import Avatar from '../../components/Avatar';
-import { LinearGradient } from 'expo-linear-gradient'; // Ensure you have this package installed
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { useRoute } from '@react-navigation/native'
+import { doc, getDoc } from 'firebase/firestore'
+import { db } from '../../../firebase'
+import { LinearGradient } from 'expo-linear-gradient'
+import Back from '../../components/general/Back'
+import Avatar from '../../components/Avatar'
+import Button from '../../components/general/Button'
+const ViewFriendScreen = ({navigation}) => {
+  const {uid} = useRoute().params
+  console.log(uid)
+  const [userData, setUserData] = useState(null)
 
-const ProfileScreen = () => {
-  const navigation = useNavigation();
+  useEffect(() => {
+    const fetchData = async () => {
+      const docSnap = await getDoc(doc(db, "users", uid));
+
+      if (docSnap.exists()) {
+        setUserData(docSnap.data());
+      } else {
+        navigation.goBack()
+      }
+    };
+
+    fetchData();
+  })
+
   const achievements = [
-    'Recycled 100 items',
-    'Saved 50 gallons of water',
+    'Recycled 50 items',
+    'Saved 10 gallons of water',
     'Reduced carbon footprint by 10%',
   ];
 
-  const data = [50, 10, 40, 95, 4, 24, 0, 85, 91, 35, 53, 53];
-  const userData = useUser();
+  if (!userData) return
+  <LinearGradient colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.container}>
+    <Text style={styles.follow}>Loading...</Text>
+  </LinearGradient>
 
   return (
     <LinearGradient colors={['#b3d99e', '#71cabb', '#2cbbd9']} style={styles.container}>
       <ScrollView>
-        <TouchableOpacity style={{marginBottom: 15}} onPress={() => navigation.navigate('Settings')}>
-          <Ionicons name="settings-outline" size={32} color="#fff" />
-        </TouchableOpacity>
-        {/* Section 1: Streak, Following, Followers, Avatar */}
+        <Back />
         <View style={styles.section}>
           <View style={styles.profileInfo}>
             <Avatar type={userData.profilePic} />
@@ -53,13 +68,11 @@ const ProfileScreen = () => {
           </View>
         </View>
 
-        {/* Section 2: Progress */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Progress</Text>
+          <Text style={styles.sectionTitle}>{userData.name}'s Progress</Text>
           <Button text="Navigate to Planet Zones" onPress={() => navigation.navigate('PlanetHabitats')} />
         </View>
 
-        {/* Section 3: Achievements and Badges */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Achievements and Badges</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.badgesContainer}>
@@ -71,25 +84,13 @@ const ProfileScreen = () => {
           </ScrollView>
         </View>
 
-        {/* <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Total and Monthly Reports</Text>
-          <Text style={styles.reportText}>Summarize your activities, achievements, and overall impact.</Text>
-          <LineChart
-            style={{ height: 200 }}
-            data={data}
-            contentInset={{ top: 20, bottom: 20 }}
-            svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
-          />
-          <Text style={styles.graphLabel}>Your Progress Over Time</Text>
-        </View> */}
-
         <View style={{ height: 50 }} />
       </ScrollView>
     </LinearGradient>
-  );
-};
+  )
+}
 
-export default ProfileScreen;
+export default ViewFriendScreen
 
 const styles = StyleSheet.create({
   container: {
@@ -124,14 +125,16 @@ const styles = StyleSheet.create({
     color: '#FF6F61', // Primary color for name
   },
   uname: {
-    fontSize: 16,
+    fontSize: 14,
     marginTop: 4,
     color: '#b3d99e', // Secondary color for username
+    fontFamily: 'Poppins_300Light',
   },
   follow: {
     fontSize: 14,
     marginTop: 4,
     color: '#71cabb', // Accent color for joined date
+    fontFamily: 'Poppins_400Regular',
   },
   sectionTitle: {
     fontSize: 26,
@@ -151,6 +154,7 @@ const styles = StyleSheet.create({
   statLabel: {
     fontSize: 16,
     color: '#8E24AA', // Purple for stat labels
+    fontFamily: 'Poppins_400Regular',
   },
   statValue: {
     fontSize: 26,

@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     width: '100%',
     marginBottom: 20,
     flexWrap: 'wrap',

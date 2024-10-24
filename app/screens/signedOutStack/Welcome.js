@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   topContainer: {
     flexShrink: 1,
     flexGrow: 1,
-    flexBasis: "45%",
+    flexBasis: "40%",
     justifyContent: "center",
     paddingHorizontal: sizing.lg,
     alignItems: "center"
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   bottomContainer: {
     flexShrink: 1,
     flexGrow: 0,
-    flexBasis: "55%",
+    flexBasis: "60%",
     backgroundColor: colors.offWhite,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,

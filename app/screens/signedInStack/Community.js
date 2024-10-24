@@ -5,6 +5,8 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../firebase';
 import Button from '../../components/general/Button';
 import Icon from 'react-native-vector-icons/Ionicons'; // Import icons
+import Avatar from '../../components/Avatar'
+import { useNavigation } from '@react-navigation/native';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -85,6 +87,14 @@ const FriendsScreen = () => {
     setFriends(filteredFriends);
   };
 
+  const friendTestData = [
+    {uid: 'PtabkfPwUTcZIbXdDXITRD5XLyg1', name: 'Bob', username: "dreamy-fuchsia-seaweed", profilePic: 'bear'},
+    {uid: 'd6KyY8lZSzf96sQFZnRkwSDTcp83', name: 'George', username: "fuzzy-mint-broccoli", profilePic: 'whale'},
+    {uid: 'vTYxHmjj1SOGV71wk6N8o5EkkAn1', name: 'Arty', username: "bouncy-turquoise-broccoli", profilePic: 'lion'},
+  ]
+
+  const navigation = useNavigation()
+
   const AnimatedCard = ({ item }) => {
     const animatedValue = new Animated.Value(0);
 
@@ -98,49 +108,50 @@ const FriendsScreen = () => {
 
     const scale = animatedValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [0.8, 1],
+      outputRange: [1, 1],
     });
-
     return (
-      <Animated.View style={{ transform: [{ scale }] }}>
-        <TouchableOpacity style={styles.userCard}>
-          <Icon name="person-circle" size={24} color="#2cbbd9" /> {/* Adjusted color */}
-          <Text style={styles.username}>{item.username}</Text>
+      <Animated.View id={item.uid} style={{ transform: [{ scale }] }}>
+        <TouchableOpacity style={styles.userCard} onPress={() => navigation.navigate('ViewFriend', {uid: item.uid})}>
+          <Avatar type={item.profilePic} small={true} />
+          <Text style={styles.username}>{item.name} <Text style={styles.usernameSubtitle}>({item.username})</Text></Text>
         </TouchableOpacity>
       </Animated.View>
     );
   };
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.searchInput}
-        placeholder="Search for friends by username"
-        value={search}
-        onChangeText={setSearch}
-        autoCapitalize="none"
-      />
-      <Button text="Search" onPress={handleSearch} />
+    <View style={[styles.container, {paddingTop: 16}]}>
+      <View style={{marginHorizontal: 16}}>
+        <TextInput
+          style={[styles.searchInput]}
+          placeholder="Search for friends by username"
+          value={search}
+          onChangeText={setSearch}
+          autoCapitalize="none"
+        />
+        <Button text="Search" onPress={handleSearch} />
+      </View>
 
-      <Text style={styles.sectionTitle}>Friends:</Text>
-      {friends.length > 0 ? (
+      <Text style={[styles.sectionTitle, {marginHorizontal: 16}]}>Friends:</Text>
+      {friendTestData.length > 0 ? (
         <FlatList
-          data={friends}
+          data={friendTestData}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <AnimatedCard item={item} />}
         />
       ) : (
-        <Text style={styles.emptyMessage}>No friends found.</Text>
+        <Text style={styles.emptyMessage}>No friends found!</Text>
       )}
 
-      <Text style={styles.sectionTitle}>Friend Requests:</Text>
+      <Text style={[styles.sectionTitle, {marginHorizontal: 16}]}>Friend Requests:</Text>
       {incomingFriendRequests.length > 0 ? (
         <FlatList
           data={incomingFriendRequests}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <View style={styles.requestCard}>
-              <Icon name="person-add" size={24} color="#2cbbd9" /> {/* Adjusted color */}
+            <View style={styles.requestCard} key={item.uid}>
+              <Avatar type={item.profilePic} small={true} />
               <Text style={styles.username}>{item.username}</Text>
               <TouchableOpacity style={styles.requestButton}>
                 <Text style={styles.requestButtonText}>Accept</Text>
@@ -176,7 +187,7 @@ const FriendsScreen = () => {
 
 const CommunityScreen = () => {
   return (
-    <Tab.Navigator style={{ paddingTop: 50 }}>
+    <Tab.Navigator style={{ paddingTop: 50, backgroundColor: '#ffefd5'}}>
       <Tab.Screen name="Leaderboard" component={LeaderboardScreen} />
       <Tab.Screen name="Friends" component={FriendsScreen} />
     </Tab.Navigator>
@@ -188,7 +199,6 @@ export default CommunityScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
     backgroundColor: '#ffefd5',
   },
   searchInput: {
@@ -202,7 +212,8 @@ const styles = StyleSheet.create({
   },
   userCard: {
     padding: 16,
-    marginVertical: 6,
+    marginHorizontal: 16,
+    marginVertical: 12,
     borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
@@ -233,9 +244,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   usernameSubtitle: {
-    fontSize: 16,
+    fontSize: 12,
     color: '#fff',
-    fontStyle: 'italic',
+    fontFamily: 'Poppins_300Light',
   },
   points: {
     fontSize: 16,
@@ -259,7 +270,8 @@ const styles = StyleSheet.create({
   emptyMessage: {
     textAlign: 'center',
     fontSize: 18,
-    marginTop: 50,
+    marginTop: 16,
+    marginBottom: 50,
     color: '#888',
   },
   rankBadge: {
