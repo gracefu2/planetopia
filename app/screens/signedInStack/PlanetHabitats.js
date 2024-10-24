@@ -89,11 +89,11 @@ const styles = StyleSheet.create({
   },
   goBackText: {
     color: '#ffffff', // White text for button
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
     textAlign: 'center',
     marginBottom: 20,
     color: '#00796b', // Dark teal for title
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   },
   planetName: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
     color: '#d32f2f', // Red for planet names
   },
   habitatCount: {
@@ -147,6 +147,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: '#ffffff', // White text for button
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
   },
 });

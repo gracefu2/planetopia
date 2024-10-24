@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
     marginVertical: 12,
     color: '#2cbbd9', // A contrasting color for headings
   },
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   },
   guideTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
     color: '#333',
   },
   guideText: {

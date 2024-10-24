@@ -60,7 +60,7 @@ const WelcomeScreen = () => {
     <View style={styles.container}>
       <View style={styles.topContainer}>
         <Image style={styles.logo} source={require("../../../assets/icon.png")} resizeMode="contain" />
-        {/* <Text>Planetopia</Text> */}
+        {/* <Text style={{ fontFamily: 'Poppins_400Regular' }}>Planetopia</Text> */}
       </View>
 
       <View style={styles.bottomContainer}>
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: sizing.lg,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
     marginBottom: sizing.defaultContainerPadding,
     textAlign: 'center',
   },

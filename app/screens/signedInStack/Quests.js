@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontSize: 34,
-    fontWeight: '700',
+    fontFamily: 'Poppins_700Bold',
     color: colors.white,
     textAlign: 'center',
   },
@@ -140,19 +140,19 @@ const styles = StyleSheet.create({
   },
   trackPointsText: {
     fontSize: 18,
-    fontWeight: '600',
+    fontFamily: 'Poppins_600SemiBold',
     marginBottom: 10,
     color: colors.text,
   },
   goalText: {
     fontSize: 16,
-    fontWeight: '500',
+    fontFamily: 'Poppins_500Medium',
     color: colors.text,
     marginBottom: 10,
   },
   sectionTitle: {
     fontSize: 28,
-    fontWeight: '700',
+    fontFamily: 'Poppins_700Bold',
     color: colors.primary,
     marginVertical: 10,
   },

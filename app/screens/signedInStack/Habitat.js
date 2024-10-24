@@ -4,7 +4,7 @@ import React from 'react'
 const HabitatScreen = () => {
   return (
     <View>
-      <Text>HabitatScreen</Text>
+      <Text style={{ fontFamily: 'Poppins_400Regular' }}>HabitatScreen</Text>
     </View>
   )
 }

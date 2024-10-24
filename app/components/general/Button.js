@@ -19,10 +19,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: sizing.md,
     paddingVertical: sizing.mds,
-    borderRadius: sizing.mds*2
+    borderRadius: sizing.mds*2,
+    fontFamily: 'Poppins_400Regular'
   },
   text: {
-    fontWeight: '500',
+    fontFamily: 'Poppins_500Medium',
     color: 'white',
     fontSize: sizing.md
   }

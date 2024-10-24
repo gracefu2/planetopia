@@ -5,6 +5,7 @@ import colors from '../../../theme/colors'; // Ensure your colors are updated he
 import getNewsData from '../../../utils/getNewsData';
 import getGreeting from '../../../utils/getGreeting';
 import { useUser } from '../../../context/UserContext';
+import { Linking } from 'react-native';
 
 const FeedScreen = () => {
   const userData = useUser();
@@ -66,17 +67,21 @@ const FeedScreen = () => {
     <View style={styles.container}>
       <View style={styles.section}>
         <Text style={styles.title}>{message}</Text>
-        <Text>{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: '2-digit', year: 'numeric' })}</Text>
+        <Text style={{ fontFamily: 'Poppins_400Regular' }}>{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: '2-digit', year: 'numeric' })}</Text>
       </View>
       <ActivityIndicator />
     </View>
   );
 
+  const openLink = async (url) => {
+    await Linking.openURL(url)
+  } 
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.section}>
         <Text style={styles.title}>{message}</Text>
-        <Text>{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: '2-digit', year: 'numeric' })}</Text>
+        <Text style={{ fontFamily: 'Poppins_400Regular' }}>{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: '2-digit', year: 'numeric' })}</Text>
       </View>
       <ScrollView horizontal={true} contentContainerStyle={styles.categoriesContainer} showsHorizontalScrollIndicator={false}>
         <View style={{ width: sizing.defaultContainerPadding - sizing.sm }} />
@@ -97,7 +102,7 @@ const FeedScreen = () => {
       <View style={[styles.section, { gap: sizing.lg }]}>
         {
           categorizedArticles[selectedCategory]?.map(article => (
-            <View style={styles.articleContainer} key={article.url}>
+            <TouchableOpacity onPress={() => openLink(article.url)} style={styles.articleContainer} key={article.url}>
               {
                 article.image && 
                 <Image style={styles.articleImage} source={{ uri: article.image }} />
@@ -109,7 +114,7 @@ const FeedScreen = () => {
                 </Text>
                 <Text style={styles.articleDescription}>{article.body.slice(0, 100)}...</Text>
               </View>
-            </View>
+            </TouchableOpacity>
           ))
         }
       </View>
@@ -122,14 +127,15 @@ export default FeedScreen;
 const styles = StyleSheet.create({
   container: {
     paddingVertical: sizing.xxxl,
-    backgroundColor: '#2cbbd9',
+    backgroundColor: '#8BE3F5',
     flex: 1,
   },
   title: {
     fontSize: sizing.lg,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
     marginBottom: sizing.sm,
     color: colors.primary, // Use primary color for title
+    fontFamily: 'Poppins_600SemiBold'
   },
   section: {
     paddingHorizontal: sizing.defaultContainerPadding,
@@ -150,7 +156,7 @@ const styles = StyleSheet.create({
   },
   categoryText: {
     color: colors.black,
-    fontWeight: '500',
+    fontFamily: 'Poppins_600SemiBold'
   },
   articleContainer: {
     flexDirection: 'column',
@@ -182,11 +188,13 @@ const styles = StyleSheet.create({
   },
   articleTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
     color: '#78b900', // Use blue for article title
+    fontFamily: 'Poppins_700Bold'
   },
   articleDescription: {
     fontSize: 14,
     marginTop: 8,
+    fontFamily: 'Poppins_400Regular'
   },
 });

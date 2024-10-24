@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
     marginBottom: 12,
   },
   content: {
@@ -41,14 +41,14 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
     borderBottomWidth: 1,
     borderColor: '#ccc',
     marginVertical: 10,
   },
   subheading: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
     marginVertical: 10,
   },
   'list-item': {

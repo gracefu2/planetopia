@@ -1,5 +1,5 @@
 export default colors = {
-    "extraLightBlue": "#BFF8FF",
+    "extraLightBlue": "#D5F6FA",
     "lightBlue": "#39C7D8",
     "blue": "#4396E8",
     "midBlue": "#0A84C6",

@@ -16,7 +16,7 @@ const SettingsScreen = () => {
   return (
     <View style={styles.container}>
       <Back />
-      <Text>Settings</Text>
+      <Text style={{ fontFamily: 'Poppins_400Regular' }}>Settings</Text>
       <Button white={true} text={"Logout"} onPress={handleLogout}/>
       <ProfilePictureEditor/>
     </View>

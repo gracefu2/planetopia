@@ -55,7 +55,7 @@ const EditGuideScreen = () => {
           onChangeText={setTitle}
         />
 
-        <Text>Select Icon:</Text>
+        <Text style={{ fontFamily: 'Poppins_400Regular' }}>Select Icon:</Text>
         <FlatList
           data={emojis}
           horizontal
@@ -134,14 +134,14 @@ const styles = StyleSheet.create({
   },
   heading: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
     borderBottomWidth: 1,
     borderColor: '#ccc',
     marginVertical: 10,
   },
   subheading: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
     marginVertical: 10,
   },
   list: {
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: colors.white,
     fontSize: 16,
-    fontWeight: '800'
+    fontFamily: 'Poppins_700Bold'
   },
 });
 

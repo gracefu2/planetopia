@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
   },
   username: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
     color: '#fff',
     marginLeft: 10,
   },
@@ -244,15 +244,17 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
     marginVertical: 8,
     color: '#2cbbd9', // Updated color
+    fontFamily: 'Poppins_600SemiBold'
   },
   loadingMessage: {
     textAlign: 'center',
     fontSize: 24,
     marginTop: 50,
     color: '#2cbbd9', // Updated color
+    fontFamily: 'Poppins_40Regular'
   },
   emptyMessage: {
     textAlign: 'center',
@@ -270,7 +272,7 @@ const styles = StyleSheet.create({
   },
   rankText: {
     color: '#fff',
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
   },
   requestButton: {
     marginLeft: 'auto',
@@ -281,6 +283,6 @@ const styles = StyleSheet.create({
   },
   requestButtonText: {
     color: '#fff',
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
   },
 });

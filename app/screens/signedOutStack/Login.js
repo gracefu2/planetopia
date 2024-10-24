@@ -47,7 +47,7 @@ const LoginScreen = () => {
 
       <View style={styles.bottomText}>
         <Text style={{color: colors.darkGray}}>Don't have an account?</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('CreateAccount')}><Text style={{fontWeight: '500'}}>Create an account</Text></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('CreateAccount')}><Text style={{fontFamily: 'Poppins_500Medium'}}>Create an account</Text></TouchableOpacity>
       </View>
     </View>
   )
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: sizing.lg,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
     marginBottom: sizing.defaultContainerPadding,
     textAlign: 'center',
   },

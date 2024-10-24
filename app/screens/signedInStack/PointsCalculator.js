@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
   dailyPoints: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
     marginBottom: 20,
     textAlign: 'center',
   },
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
   },
   categoryTitle: {
     fontSize: 20,
-    fontWeight: '600',
+    fontFamily: 'Poppins_600SemiBold',
     marginBottom: 10,
   },
   itemContainer: {
@@ -134,12 +134,12 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontSize: 16,
-    fontWeight: '500',
+    fontFamily: 'Poppins_500Medium',
     textAlign: 'center',
   },
   itemPoints: {
     fontSize: 14,
     color: '#4caf50',
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
   },
 });

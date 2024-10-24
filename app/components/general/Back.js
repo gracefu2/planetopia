@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignSelf: 'flex-start',
     margin: 10,
+    fontFamily: 'Poppins_400Regular'
   },
   buttonText: {
     color: colors.white,

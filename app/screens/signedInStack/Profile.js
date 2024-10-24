@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
   streak: {
     fontSize: 28,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
     color: '#FF6F61', // Primary color for name
   },
   uname: {
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 26,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
     marginBottom: 8,
     color: '#FF6F61', // Primary color for section titles
   },
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
   },
   statValue: {
     fontSize: 26,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
     color: '#FF9800', // Bright orange for stat values
   },
   badgesContainer: {
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   badgeText: {
     color: '#fff', // White text for badges
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: 'Poppins_600SemiBold',
   },
   achievement: {
     fontSize: 18,
